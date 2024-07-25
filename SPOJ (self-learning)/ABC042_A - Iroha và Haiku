@@ -1,0 +1,22 @@
+/*
+author: Đỗ Trung Quân
+Description: 
+  cho input gồm 3 số nguyên, kiểm tra liệu có thể sắp xếp thứ tự các số thành dạng các số "5-7-5" không?
+*/
+
+
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);    //khai báo input "in" theo Class Scanner
+        String[] arr = in.nextLine().split("\\s+");      //arr là mảng gồm các phần tử input dạng String đã được split(" ")
+        int num5 = 0; int num7 = 0;        //biến đếm số lần xuất hiện của "5" và "7" trong arr
+        for(String x:arr){
+            if(x.equals("5")) num5++;
+            else if(x.equals("7")) num7++;
+        }
+        if(num5 == 2 && num7 == 1) System.out.println("YES");
+        else System.out.println("NO");
+    }
+}
