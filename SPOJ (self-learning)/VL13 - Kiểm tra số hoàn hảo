@@ -1,0 +1,21 @@
+//*NOTE: số hoàn hảo không được <=1
+
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int N = in.nextInt();
+        int res = 1;
+        
+        //cộng dồn all ước != N vào res
+        for(int i=2;i<=Math.sqrt(N);i++){
+            if(N%i==0){
+                res+=i;
+                if(i != N/i) res+=N/i;
+            }
+        }
+        if(N == res && N>1) System.out.println("YES");
+        else System.out.println("NO");
+    }
+}
