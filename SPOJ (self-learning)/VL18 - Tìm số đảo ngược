@@ -1,0 +1,16 @@
+//sử dụng StringBuffer nếu xâu cần nhiều sự thay đổi (xóa, thay thế đoạn trong xâu, đảo ngược,...)
+
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        StringBuffer n = new StringBuffer();   //tạp object n cho Class StringBuffer
+        n.append(in.next());                   //StringBuffer khởi tạo = cách append
+        n = n.reverse();                       //đảo ngược xâu
+        while(n.charAt(0)=='0'){               //xóa số 0 ở đầu xâu đã đảo ngược
+            n.delete(0, 1);
+        }
+        System.out.println(n);
+    }
+}
