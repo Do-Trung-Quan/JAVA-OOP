@@ -1,0 +1,26 @@
+/*
+tỉ lệ diện tích của tam giác nhỏ = S(i)/S = (h(i)/H)^2
+=> hoàn toàn có thể tính được h(i) khi biết tỉ lệ S(i)/S
+*/
+
+import java.util.Scanner;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt(); // Số lượng test cases
+
+        while (t-- > 0) {
+            int n = in.nextInt(); // Số lượng phần cần chia
+            int H = in.nextInt(); // Chiều cao tam giác
+
+            for (int i = 1; i < n; i++) {
+                double hi = Math.sqrt((double) i / n) * H; //công thức h(i) = sqrt(S(i)/S) * H = sqrt(i/n) * H
+                System.out.printf("%.6f ", hi);
+            }
+            System.out.println(); // Xuống dòng sau mỗi test case
+        }
+        in.close();
+    }
+}
