@@ -1,0 +1,25 @@
+import java.util.*;
+
+public class Solution {
+    private static long[] a = new long[93];
+    private static boolean res(long n){
+        a[1] = 1; a[2] = 1;
+        for(int i=3;i<=92;i++){
+            a[i] = a[i-1] + a[i-2];
+        }
+        for(long x:a){
+            if(x == n) return true;
+        }
+        return false;
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt(); // Số lượng test cases
+        while(t-- > 0){
+            long n = in.nextLong();
+            if(res(n)) System.out.println("YES");
+            else System.out.println("NO");
+        }
+    }
+}
