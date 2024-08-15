@@ -1,0 +1,23 @@
+import java.util.*;
+
+public class Solution {
+    private static long res(String n){
+        String ans = "";
+        for(char c: n.toCharArray()){
+            if(c == '0' || c == '8' || c == '9') ans+='0';
+            else if(c == '1') ans+='1';
+            else return 0;
+        }
+        return Long.parseLong(ans);
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();               // Số lượng test cases
+        for(int y=1;y<=t;y++){
+            String s = in.next();
+            if(res(s)!=0) System.out.println(res(s));
+            else System.out.println("INVALID");
+        }
+    }
+}
