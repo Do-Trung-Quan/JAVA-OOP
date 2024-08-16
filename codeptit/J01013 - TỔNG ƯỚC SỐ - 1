@@ -1,0 +1,36 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    private static int[] a = new int[2000005];   //dãy lưu các tsnt đầu tiên của từng số nguyên dương từ 1-2000000
+    private static void init(){                  //hàm sàng tsnt đầu tiên của 1-2000000
+        a[0] = a[1] = 1;
+        for(int i=2;i<=Math.sqrt(2000000);i++){
+            if(a[i] == 0){                        //nếu i là snt -> cập nhật tsnt đầu tiên của bội của i = i.     VD: 4,6,8,10,... có tsnt đầu tiên là 2
+                for(int j=i*i;j<=2000000;j+=i){
+                    a[j] = i;
+                }
+            }
+        }
+        for(int i=2;i<=2000000;i++){              //cập nhật tsnt đầu tiên của các snt là chính nó
+            if(a[i]==0) a[i]=i;
+        }
+    }
+    
+    public static void main(String[] args) {
+        init();
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        long sum = 0;
+        while(t-- >0){
+            int n = in.nextInt();
+            while(n>1){                          //cộng dồn các tsnt đầu tiên tìm được của n vào sum, cập nhật n = n/a[n] sau mỗi bước lặp
+                sum+=a[n];
+                n/=a[n];
+            }
+        }
+        System.out.println(sum);                //in tổng các tsnt tìm được
+    }
+}
+
