@@ -1,0 +1,27 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            int n = in.nextInt();
+            if(n%2==1){                          //nếu n lẻ => ko có ước nào chia hết cho 2
+                System.out.println("0");
+                continue;
+            }else {
+                int res = 1;                     //nếu n chẵn => luôn có 1 ước là chính nó chia hết 2
+                for(int i=2;i<=Math.sqrt(n);i++){    //vòng lặp tìm các ước của n, lọc các ước chia hết cho 2
+                    if(n%i == 0){
+                        if(i%2 == 0) res+=1;
+                        if(i!=n/i && (n/i)%2==0) res+=1;
+                    }
+                }
+                System.out.println(res);
+            }
+        }
+    }
+}
+
