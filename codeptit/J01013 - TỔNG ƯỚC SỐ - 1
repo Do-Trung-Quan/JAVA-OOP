@@ -9,7 +9,7 @@ public class Solution {
         for(int i=2;i<=Math.sqrt(2000000);i++){
             if(a[i] == 0){                        //nếu i là snt -> cập nhật tsnt đầu tiên của bội của i = i.     VD: 4,6,8,10,... có tsnt đầu tiên là 2
                 for(int j=i*i;j<=2000000;j+=i){
-                    a[j] = i;
+                    if(a[j]==0)  a[j] = i;
                 }
             }
         }
