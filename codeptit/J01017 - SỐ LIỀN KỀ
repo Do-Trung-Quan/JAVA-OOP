@@ -1,0 +1,23 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            String n = in.next();
+            int res = 0; int ok = 1;
+            for(int i=1;i<n.length();i++){
+                if(Math.abs(Character.getNumericValue(n.charAt(i)) - Character.getNumericValue(n.charAt(i-1))) != 1){
+                    System.out.println("NO");
+                    ok = 0;
+                    break;
+                }
+            }
+            if(ok == 1) System.out.println("YES");
+        }
+    }
+}
+
