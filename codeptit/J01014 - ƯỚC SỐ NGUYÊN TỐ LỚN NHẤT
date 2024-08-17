@@ -1,0 +1,23 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            long n = in.nextLong();
+            long res = 0;
+            for(int i=2;i<=Math.sqrt(n);i++){
+                while(n%i==0){
+                    n/=i;
+                    res = i;
+                }
+            }
+            if(n>1) res = n;
+            System.out.println(res);
+        }
+    }
+}
+
