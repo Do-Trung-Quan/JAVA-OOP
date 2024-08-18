@@ -1,0 +1,41 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    private static long[] a = new long[93]; //dãy lưu số kí tự của xâu thứ i (theo công thức fibo)
+
+    private static void init() {  //hàm tạo trước dãy fibo lưu số kí tự của xâu thứ i
+        a[1] = 1; a[2] = 1;
+        for(int i=3;i<=92;i++){
+            a[i] = a[i-1] + a[i-2];
+        }
+    }
+    
+    private static int res(int n, long k){   //hàm xác định kí tự tại vị trí k của xâu n
+        while(n>2){            
+            long dis = a[n-2];     //ranh giới phân biệt giữa 2 xâu a[n-1] và a[n-2] trong xâu a[n]
+            if(k> dis){            //nếu k > dis => k thuộc xâu a[n-1]
+                n--;
+                k-=dis;            //cập nhật lại k theo xâu a[n-1]
+            }else{                 //nếu k <= dis => k thuộc xâu a[n-2]
+                n-=2;
+            }
+        }
+        if(n == 1) return 0;      //in ra kí tự nếu n = 1 hoặc n = 2
+        else return 1;
+    }
+    
+    public static void main(String[] args) {
+        init();
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            int n = in.nextInt();
+            long k = in.nextLong();
+            System.out.println(res(n,k));
+        }
+        
+    }
+}
+
