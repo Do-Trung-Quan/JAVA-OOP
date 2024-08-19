@@ -1,0 +1,28 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+            int a = in.nextInt();
+            int b = in.nextInt();
+            HashSet<Integer> A = new HashSet<Integer>();
+            HashSet<Integer> B = new HashSet<Integer>();
+            for(int i=1;i<=a;i++){
+                A.add(in.nextInt());
+            }
+            for(int i=1;i<=b;i++){
+                B.add(in.nextInt());
+            }
+
+            A.retainAll(B); // đưa giao của A và B vào tập A
+            List<Integer> sortedList = new ArrayList<>(A);  // Chuyển HashSet A thành một ArrayList
+            Collections.sort(sortedList);  // Sắp xếp ArrayList theo thứ tự tăng dần
+
+            for(int x : sortedList) {
+                System.out.print(x + " ");  // In ra từng phần tử trong danh sách đã sắp xếp
+            }
+    }
+}
+
