@@ -1,0 +1,24 @@
+/*
+Để tìm diện tích hình vuông bé nhất chứa 2 hình cn, cần tìm độ dài cạnh của hình vuông = max(khoảng cách giữa tọa độ y min và tọa độ y max)
+*/
+
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        ArrayList<Integer> aY = new ArrayList<Integer>(); //lưu tọa dộ y của 4 điểm góc thuộc 2 hình chữ nhật
+        ArrayList<Integer> aX = new ArrayList<Integer>(); //lưu tọa dộ x của 4 điểm góc thuộc 2 hình chữ nhật
+        for(int i=1;i<=8;i++){
+            int n = in.nextInt();
+            if(i%2==0){
+                aY.add(n);
+            }else aX.add(n);
+        }
+        int dis1 = Collections.max(aX) - Collections.min(aX);
+        int dis2 = Collections.max(aY) - Collections.min(aY);
+        System.out.println((int)Math.pow(Math.max(dis1, dis2), 2));
+    }
+}
