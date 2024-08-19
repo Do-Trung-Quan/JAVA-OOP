@@ -1,0 +1,23 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            int n = in.nextInt();
+            ArrayList<Long> a = new ArrayList<Long>();
+            for(int i=1;i<=n;i++){
+                a.add(in.nextLong());
+            }
+            ArrayList<Long> b = new ArrayList<Long>(a); //copy mảng a sang mảng b
+            Collections.reverse(a);                     //reverse mảng a
+            
+            if(a.equals(b)) System.out.println("YES");  //kiểm tra nếu mảng a = mảng b
+            else System.out.println("NO");
+        }
+    }
+}
+
