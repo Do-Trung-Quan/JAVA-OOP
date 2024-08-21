@@ -1,0 +1,58 @@
+/*
+Để tìm BCNN của dãy 1,2,...,n cần 
++ lọc ra các số nt <= n 
++ với mỗi số nguyên tố k tìm được, nhân dồn vào res: k^logk(n) (logk(n) là số mũ để lũy thừa k lớn nhất nhỏ hơn n)  => k^logk(n) chính là lũy thừa của k lớn nhất nhỏ hơn n
+  VD: n = 20, k = 2; res *= 2 ^ log2(20) = 2 ^ 4 = 16
++ lặp lại bước trên với các số nguyên tố tiep theo tìm được
++ in ra res cuối cùng
+
+VD: n = 10, snt[] = {2,3,5,7}
+  res *= 2^log2(10) = 2^3 = 8
+  res *= 3^log3(10) = 3^2 = 9
+  res *= 5^log5(10) = 5^1 = 5
+  res *= 7^log7(10) = 7^1 = 7
+==> res = 2520
+*/
+
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    private static int[] a = new int[101];
+    private static ArrayList<Integer> vec = new ArrayList<>();
+    private static void init(){               //hàm sàng các số nguyên tố <= 100 vào ArrayList vec
+        for(int i=2;i<=100;i++){
+            a[i] = 1;
+        }
+        a[0] = a[1] = 0;
+        for(int i=2;i<=Math.sqrt(100);i++){
+            if(a[i] == 1){
+                for(int j=i*i;j<=100;j+=i){
+                    a[j] = 0;
+                }
+            }
+        }
+        for(int i=1;i<=100;i++){
+            if(a[i]==1) vec.add(i);
+        }
+    }
+    
+    public static void main(String[] args) {
+        init();                                  //sàng snt
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        for(int x=1;x<=t;x++){
+            int n = in.nextInt();
+            long res = 1;                        //biến lưu kq
+            for(int k:vec){                      
+                if(k<=n){
+                    int num = (int) (Math.log(n) / Math.log(k));
+                    res*= Math.pow(k, num);
+                }else break;
+            }
+            System.out.println(res);
+        }
+    }
+}
+
