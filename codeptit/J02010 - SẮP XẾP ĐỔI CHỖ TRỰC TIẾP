@@ -1,0 +1,31 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        ArrayList<Integer> a = new ArrayList<>();
+        for(int x=1;x<=t;x++){
+            a.add(in.nextInt());
+        }
+        
+        for(int i=0;i<a.size();i++){
+            int ok = 0;
+            for(int j = i+1;j<a.size();j++){
+                if(a.get(i) > a.get(j)){
+                    Collections.swap(a, i, j);
+                    ok = 1;
+                }
+            }
+            if(ok == 0) break;
+            System.out.print("Buoc "+(i+1)+": ");
+            for(int k:a){
+                System.out.print(k+" ");
+            }
+            System.out.println();
+        }
+    }
+}
+
