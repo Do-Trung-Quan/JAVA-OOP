@@ -1,0 +1,23 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        for(int x=1;x<=t;x++){
+            int n = in.nextInt();
+            LinkedHashMap<Integer, Integer> mp = new LinkedHashMap<>();  //sử dụng LinkedHashMap để in ra theo đúng thứ tự key đưa vào
+            for(int i=1;i<=n;i++){
+                int tmp = in.nextInt();
+                mp.put(tmp, mp.getOrDefault(tmp, 0)+1);
+            }
+            System.out.println("Test "+x+":");
+            for(int j:mp.keySet()){
+                System.out.println(j + " xuat hien " + mp.get(j) + " lan");
+            }
+        }
+    }
+}
+
