@@ -1,0 +1,26 @@
+/*
+sử dụng stack với quy tắc:
+  + push a[i] vào nếu stack đang rỗng hoặc a[i] + st.peek() ko chia hết cho 2
+  + pop nếu a[i] + st.peek() chia hết cho 2
+duyệt tới khi hết phần tử thì in ra stack.size();
+*/
+
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        Stack<Integer> st = new Stack<>();
+        while(n-- > 0){
+            int tmp = in.nextInt();
+            if(st.isEmpty() || (!st.isEmpty() && (st.peek()+tmp) %2!=0)){
+                st.push(tmp);
+            }else st.pop();
+        }
+        System.out.println(st.size());
+    }
+}
+
