@@ -1,0 +1,41 @@
+/*
+chia mảng thành 2 phần trái và phải ngăn cách bởi i duyệt lần lượt trên mảng
+tạo trc num = 0, sum = tổng phần tử trong mảng
+mỗi bước duyệt i:
+  biến num là tổng các phần tử bên trái ko tính phần tử thứ i, cập nhật = cách cộng dồn phần tử thứ i-1 sau mỗi bước duyệt
+  biến sum là tổng các phần tử bên phải ko tính phần tử thứ i, cập nhật = cách trừ dồn phần tử thứ i sau mỗi bước duyệt
+  nếu num == sum --> tìm được điểm cân bằng
+*/
+
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            int n = in.nextInt();
+            int[] a = new int[n];
+            for(int i=0;i<n;i++){
+                a[i] = in.nextInt();
+            }
+            int sum = Arrays.stream(a).sum();  //sử dụng stream để tính nhanh tổng của mảng
+            int num = 0; int ok = 0;
+            for(int i=0;i<n;i++){
+                if(i>0) num+=a[i-1];
+                sum-=a[i];
+//                System.out.println(num +" | "+(sum));
+                if(num == sum){
+                    System.out.println(i+1);
+                    ok = 1;
+                    break;
+                }
+            }
+            if(ok == 0) System.out.println("-1");
+        }
+        
+    }
+}
+
