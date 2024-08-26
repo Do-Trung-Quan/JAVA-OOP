@@ -1,0 +1,27 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    static int[] a = new int[201];
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        Arrays.fill(a, 0);
+        int max = 0;
+        while (n-- > 0){
+            int tmp = in.nextInt();
+            max = Math.max(tmp, max);
+            a[tmp] = 1;
+        }
+        int ok = 0;
+        for(int i=1;i<max;i++){
+            if(a[i] == 0){
+                ok = 1;
+                System.out.println(i);
+            }
+        }
+        if(ok == 0) System.out.println("Excellent!");
+    }
+}
