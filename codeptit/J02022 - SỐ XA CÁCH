@@ -1,0 +1,41 @@
+/*
+chung quy lại là bài liệt kê hoán vị có điều kiện là ko có số 0 và các số liền kề có hiệu khác 1, các số trong khoảng từ 1-n
+*/
+
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    static boolean[] used = new boolean[10];
+    
+    private static void Try(int i, int n, int[] a){
+        for(int j=1;j<=n;j++){
+            if(!used[j] && Math.abs(j - a[i-1])>1){
+                a[i] = j;
+                used[j] = true;
+                if(i == n){
+                    for(int x = 1;x<=n;x++){
+                        System.out.print(a[x]);
+                    }
+                    System.out.println();
+                }else Try(i+1, n, a);
+                used[j] = false;
+            }
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while (t-- > 0){
+            int n = in.nextInt();
+            int[] a = new int[n+1];
+            Arrays.fill(a, 0);
+            a[0] = -1;
+            Try(1, n, a);
+        }
+        
+    }
+}
+
