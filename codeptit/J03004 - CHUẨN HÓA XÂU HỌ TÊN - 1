@@ -1,0 +1,22 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        String decoil = in.nextLine();       //xâu lưu dấu enter khi nhập t, tránh lỗi skip string
+        while(t-- > 0){
+            String s = in.nextLine();
+            String[] arrS = s.trim().split("\\s+");        //String.trim(): xóa all dấu cách 2 đầu string
+                                                           //String.split("\\s+"): trả về mảng các String phân tách bởi các khoảng trắng
+            for(String x:arrS){
+                x = x.substring(0,1).toUpperCase() + x.substring(1).toLowerCase();    //String.substring(startInd, endInd): trả về String con cắt từ stInd đến enInd của String
+                System.out.print(x+" ");
+            }
+            System.out.println();
+        }
+    }
+}
+
