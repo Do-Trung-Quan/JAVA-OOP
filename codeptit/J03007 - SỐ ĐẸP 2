@@ -1,0 +1,29 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    private static boolean check(String s){
+        StringBuffer re = new StringBuffer(s);
+        if(!s.equals(re.reverse().toString())){
+            return false;
+        }
+        int res = 0;
+        for(char x:s.toCharArray()){
+            res+=Character.getNumericValue(x);
+        }
+        if(res%10 != 0 || !s.startsWith("8") || !s.endsWith("8")) return false;
+        return true;
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        String decoil = in.nextLine();
+        while(t-- > 0){
+            String s = in.nextLine();
+            if(check(s)) System.out.println("YES");
+            else System.out.println("NO");
+        }
+    }
+}
+
