@@ -1,0 +1,25 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    private static boolean check(String s){
+        StringBuffer re = new StringBuffer(s);                     //sử dụng StringBuffer để dùng hàm reverse()
+        if(!s.equals(re.reverse().toString())) return false;        //nhớ đổi lại .toString() để dùng được hàm .equals()
+        for(char x:s.toCharArray()){
+            if(x!='2' && x!='3' && x!='5' && x!='7') return false;
+        }
+        return true;
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            String s = in.next();
+            if(check(s)){
+                System.out.println("YES");
+            }else System.out.println("NO");
+        }
+    }
+}
+
