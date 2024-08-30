@@ -1,0 +1,30 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        String decoil = in.nextLine();    //tránh lỗi skip string
+        while(t-- > 0){
+            String s1 = in.nextLine();
+            String s2 = in.nextLine();
+            Set<String> S1 = new TreeSet<>();   //sử dụng treeset để tự động sắp xếp xâu tăng dần
+            Set<String> S2 = new TreeSet<>();
+            for(String x:s1.trim().split("\\s+")){
+                S1.add(x);
+            }
+            for(String x:s2.trim().split("\\s+")){
+                S2.add(x);
+            }
+            S1.removeIf(n -> S2.contains(n) == true);       //sử dụng hàm removeIf của ArrayList -> loại bỏ phần tử khỏi List khi thỏa mãn điều kiện nhập vào => loại bỏ pt nếu pt trong S1 thuộc S2
+            for(String x:S1){
+                System.out.print(x+" ");
+            }
+            System.out.println();
+        }
+    }
+}
+
