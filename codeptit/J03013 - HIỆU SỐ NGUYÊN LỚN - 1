@@ -1,0 +1,20 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            BigInteger n = new BigInteger(in.next());
+            BigInteger m = new BigInteger(in.next());
+            String max = n.max(m).toString();                          //max lưu dạng string của số lớn hơn trong 2 số n,m
+            String res = n.subtract(m).abs().toString();               //res lưu dạng string của trị td hiệu n,m
+            res = String.join("", Collections.nCopies(max.length() - res.length(), "0")) + res;       //chèn thêm (max.length() - res.length()) lần kí tự "0" vào trước res nếu res ít kí tự hơn max
+            System.out.println(res);
+        }
+    }
+}
+
