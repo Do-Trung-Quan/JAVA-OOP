@@ -1,0 +1,17 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            BigInteger n = new BigInteger(in.next());   //sử dụng Class BigInteger khi làm việc với số nguyên lớn
+            BigInteger m = new BigInteger(in.next());
+            System.out.println(n.gcd(m));               //hàm trả về gcd(n.m)
+        }
+    }
+}
+
