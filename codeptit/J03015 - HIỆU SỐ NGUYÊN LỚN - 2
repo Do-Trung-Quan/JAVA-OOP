@@ -1,0 +1,15 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        BigInteger n = new BigInteger(in.next());
+        BigInteger m = new BigInteger(in.next());
+        BigInteger res = n.subtract(m);
+        System.out.println(res);
+    }
+}
+
