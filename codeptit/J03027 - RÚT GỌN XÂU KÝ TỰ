@@ -1,0 +1,33 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    private static String check(String s){       //hàm trả về xâu biến đổi các phần tử liền kề thành kí tự '#'
+        char[] a = s.toCharArray();
+        for(int i=0;i<a.length-1;i++){
+            if(a[i] == a[i+1]){
+                a[i] = a[i+1] = '#';
+            }
+        }
+        StringBuilder res = new StringBuilder();    //dùng StringBuilder để đổi char[] a sang dạng string
+        for(char x:a){
+            res.append(x);
+        }
+        return res.toString();
+        
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String s = in.next();
+        while(true){
+            String str = check(s);
+            if(s.equals(str)) break;    //nếu s == str -> s đã tối giản hết mức -> break
+            s = str;
+            s = s.replace("#", "");    //xóa các kí tự "#"
+        }
+        if(s.isEmpty()) System.out.println("Empty String");
+        else System.out.println(s);
+    }
+}
+
