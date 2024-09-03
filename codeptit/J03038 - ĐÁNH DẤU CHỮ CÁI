@@ -1,0 +1,18 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+            String s = in.next();
+            Set<Character> se = new HashSet<>();
+            for(char  x:s.toCharArray()){
+                se.add(x);
+            }
+            System.out.println(se.size());
+        
+    }
+}
+
