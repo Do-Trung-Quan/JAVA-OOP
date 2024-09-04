@@ -1,0 +1,49 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+    private static boolean check(String[] s){
+        String str = s[0] + s[1];
+        Set<Character> se = new TreeSet<>();
+        for(char x:str.toCharArray()){
+            se.add(x);
+        }
+
+        // Cả 5 chữ số được sắp theo thứ tự tăng chặt từ trái qua phải.
+        char[] s1 = str.toCharArray();
+        Arrays.sort(s1);
+        StringBuilder newS1 = new StringBuilder();
+        for(char x:s1) newS1.append(x);
+        if(str.equals(newS1.toString()) && se.size() == 5) return true;
+        
+        //Cả 5 chữ số đều bằng nhau hoặc chứa chỉ 6 và 8
+        if(se.size() == 1 || se.size() == 2 && se.contains('6') && se.contains('8')) return true;
+
+        //3 chữ số đầu, 2 chữ số cuối chỉ gồm 1 số
+        Set<Character> se0 = new TreeSet<>();
+        Set<Character> se1 = new TreeSet<>();
+        for(char x:s[0].toCharArray()){
+            se0.add(x);
+        }
+        for(char x:s[1].toCharArray()){
+            se1.add(x);
+        }
+        if(se0.size() == 1 && se1.size() == 1) return true;
+        
+        return false;
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            String s = in.next();
+            s = s.substring(5);
+            String[] a = s.split("\\.");
+            if(check(a)) System.out.println("YES");
+            else System.out.println("NO");
+        }
+        
+    }
+}
+
