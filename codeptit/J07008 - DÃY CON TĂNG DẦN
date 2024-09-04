@@ -1,0 +1,45 @@
+import java.util.Scanner;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.File;
+
+public class Solution{
+    static int n;
+    static int[] a = new int[1005];
+    static int[] b = new int[1005];
+    static ArrayList<String> res = new ArrayList<>();
+    
+    private static void Try(int i, int v){
+        for(int j=v;j<=n;j++){
+            if(b[i-1] < a[j]){
+                b[i] = a[j];
+                if(i>=2){
+                    String tmp = "";
+                    for(int k=1;k<=i;k++){
+                        tmp+=Integer.toString(b[k])+" ";
+                    }
+                    res.add(tmp);
+                }
+                Try(i+1, j+1);
+            }  
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            Scanner in = new Scanner(new File("DAYSO.in"));
+            n = in.nextInt();
+            for(int i=1;i<=n;i++){
+                a[i] = in.nextInt();
+            }
+            Try(1,1);
+            Collections.sort(res);
+            for(String x:res){
+                System.out.println(x);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+}
