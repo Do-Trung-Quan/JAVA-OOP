@@ -1,0 +1,23 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class Solution {
+    public static void main(String[] args) {
+        try {
+            Scanner in  = new Scanner(new File("VANBAN.in"));
+            Set<String> se = new TreeSet<>();
+            while(in.hasNext()){
+                se.add(in.next().toLowerCase());
+            }
+            for(String x:se){
+                System.out.println(x);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
+        
+    }
+}
