@@ -1,0 +1,30 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.Map;
+
+public class Solution {
+    static Map<Integer, Integer> mp = new TreeMap<>();
+    public static void main(String[] args) {
+        try {
+            FileInputStream fis = new FileInputStream("DATA.IN");  //thư viện FileInputStream phục vụ các thao tác đọc file nhị phân
+            DataInputStream is = new DataInputStream(fis);  //thư viện DataInputStream đọc các dữ liệu nguyên thủy từ file nhị phân
+            int t = 100000;
+            while(t-- > 0){
+                int tmp = is.readInt();
+                mp.put(tmp, mp.getOrDefault(tmp, 0)+1);
+            }
+            for(int x:mp.keySet()){
+                System.out.println(x+" "+mp.get(x));
+            }
+        }catch (FileNotFoundException e){   //lỗi ko tìm thấy tên file
+            System.out.println(e);
+        }catch (IOException e){   //lỗi khi nhập xuất dl
+            System.out.println(e);
+        }
+        
+    }
+}
