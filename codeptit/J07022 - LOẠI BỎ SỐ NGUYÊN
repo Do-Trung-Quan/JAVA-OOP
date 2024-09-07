@@ -1,0 +1,30 @@
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.Vector;
+
+public class Solution {
+    static Vector<String> vec = new Vector<>();
+    public static void main(String[] args) {
+        try{
+            Scanner in = new Scanner(new File("DATA.in"));
+            while(in.hasNext()){
+                String s = in.next();
+                try {
+                    int tmp = Integer.parseInt(s);
+                    continue;
+                } catch (Exception e) {
+                    vec.add(s);
+                } 
+            }
+            vec.sort(null);
+            for(String x:vec){
+                System.out.print(x+" ");
+            }
+        }catch (FileNotFoundException e){
+            System.out.println(e);
+        }
+        
+    }
+}
