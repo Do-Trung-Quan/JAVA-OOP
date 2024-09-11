@@ -1,0 +1,56 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+//import java.util.Map;
+//import java.util.LinkedHashMap;
+
+public class Solution{
+    private static boolean check(int n){
+        String str = String.valueOf(n);
+        StringBuilder S = new StringBuilder(str);
+        if(!str.equals(S.reverse().toString())) return false;
+        
+        if(str.length()%2!=1 || str.length()<=1) return false;
+        for(char x:str.toCharArray()){
+            if(Character.getNumericValue(x)%2!=1) return false;
+        }
+        return true;
+    }
+    public static void main(String[] args) {
+        int[] a = new int[1000005];
+        try {
+            ObjectInputStream f1 = new ObjectInputStream(new FileInputStream("DATA1.in"));
+            ObjectInputStream f2 = new ObjectInputStream(new FileInputStream("DATA2.in"));
+            ArrayList<Integer> a1 = (ArrayList<Integer>)f1.readObject();
+            ArrayList<Integer> a2 = (ArrayList<Integer>)f2.readObject();
+            ArrayList<Integer> res = new ArrayList<>();
+            f1.close();
+            f2.close();
+            for(int x:a1){
+                if(check(x)){
+                    a[x]++;
+                }
+            }
+            for(int x:a2){
+                if(a[x]>0){
+                    a[x]++;
+                    if(res.contains(x)==false){
+                        res.add(x);
+                    }
+                }
+            }
+            
+            res.sort(null);
+            int num = 0;
+            for(int x:res){
+                num++;
+                System.out.println(x+" "+a[x]);
+                if(num>=10) break;
+            }
+            
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+}
