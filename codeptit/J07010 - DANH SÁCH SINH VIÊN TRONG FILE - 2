@@ -1,0 +1,44 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public class Solution{
+    static class SinhVien{
+        private String msv, name, lop, date;
+        private double gpa;
+        private int cnt;
+        public String chuanhoa(String n){
+            StringBuilder ss = new StringBuilder(n);
+            if(ss.charAt(1)=='/') ss.insert(0, "0");
+            if(ss.charAt(4)=='/') ss.insert(3, "0");
+            return ss.toString();
+        }
+        public SinhVien(int cnt, String name, String lop, String date, double gpa){
+            this.msv = String.format("B20DCCN%03d", ++cnt);
+            this.name = name;
+            this.lop = lop;
+            this.date = chuanhoa(date);
+            this.gpa = gpa;
+        }
+        @Override
+        public String toString(){
+            return msv+" "+name+" "+lop+" "+date+" "+String.format("%.2f", gpa);
+        }
+    }
+    public static void main(String[] args) {
+        try {
+            Scanner in = new Scanner(new File("SV.in"));
+            int t = Integer.parseInt(in.nextLine());
+            SinhVien[] arr = new SinhVien[t];
+            for(int i=0;i<t;i++){
+                arr[i] = new SinhVien(i, in.nextLine(), in.nextLine(), in.nextLine(), Double.parseDouble(in.nextLine()));
+            }
+            for(SinhVien x:arr){
+                System.out.println(x.toString());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
+        
+    }
+}
