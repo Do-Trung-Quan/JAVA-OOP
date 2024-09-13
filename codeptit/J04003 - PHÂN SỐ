@@ -1,0 +1,31 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {
+    static class PhanSo{
+        private long t,m;
+        public PhanSo(long t, long m){
+            this.t = t;
+            this.m = m;
+        }
+        
+        public void Simplelize(){
+            long gcd = BigInteger.valueOf(t).gcd(BigInteger.valueOf(m)).longValue();
+            t/=gcd;
+            m/=gcd;
+        }
+        
+        @Override
+        public String toString(){
+            return t +"/"+m;
+        }
+        
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        PhanSo r = new PhanSo(in.nextLong(), in.nextLong());
+        r.Simplelize();
+        System.out.println(r.toString());
+    }
+}
