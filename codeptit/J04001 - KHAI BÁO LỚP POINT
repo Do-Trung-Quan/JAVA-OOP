@@ -1,0 +1,32 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {
+    static class Point{
+        private double x,y;
+        public Point(double x, double y){
+            this.x = x;
+            this.y = y;
+        }
+        public double getX(){
+            return x;
+        }
+        public double getY(){
+            return y;
+        }
+        public double dist(Point p){
+            double x2 = p.getX();
+            double y2 = p.getY();
+            return Math.sqrt(Math.pow(x - x2, 2) + Math.pow(y - y2, 2));
+        }
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            Point p = new Point(in.nextDouble(), in.nextDouble());
+            System.out.println(String.format("%.4f", p.dist(new Point(in.nextDouble(), in.nextDouble()))));
+        }
+    }
+}
