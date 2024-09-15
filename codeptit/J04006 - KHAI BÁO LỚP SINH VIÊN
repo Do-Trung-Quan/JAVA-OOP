@@ -1,0 +1,36 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {
+    static class SinhVien{
+        String name, lop, date;
+        double g1;
+        public SinhVien(String name, String lop, String date, double g1){
+            this.name = name;
+            this.lop = lop;
+            this.date = date;
+            this.g1 = g1;
+        }
+        public String chuanhoa(String date){
+            StringBuilder d = new StringBuilder(date);
+            if(d.charAt(1) == '/') d.insert(0, "0");
+            if(d.charAt(4) == '/') d.insert(3, "0");
+            return d.toString();
+        }
+        
+        @Override
+        public String toString(){
+            return "B20DCCN001"+" "+name+" "+lop+" "+chuanhoa(date)+" "+String.format("%.2f", g1);
+        }
+        
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String name = in.nextLine();
+        String lop = in.nextLine();
+        String date = in.nextLine();
+        double g1 = in.nextDouble();
+        System.out.println(new SinhVien(name, lop, date, g1).toString());
+    }
+}
