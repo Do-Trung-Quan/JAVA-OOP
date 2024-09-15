@@ -1,0 +1,37 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {
+    static class PhanSo{
+        private long t,m;
+        public PhanSo(long t, long m){
+            this.t = t;
+            this.m = m;
+        }
+        public long getT(){
+            return t;
+        }
+        public long getM(){
+            return m;
+        }
+        
+        public String Simplelize(PhanSo B){
+            long gcd = BigInteger.valueOf(B.getT()).gcd(BigInteger.valueOf(B.getM())).longValue();
+            return (B.getT()/gcd)+"/"+(B.getM()/gcd);
+        }
+        
+        public String Add(PhanSo B){
+            long gcd = BigInteger.valueOf(B.getM()).gcd(BigInteger.valueOf(m)).longValue();
+            long msc = B.getM()*m / gcd;
+            long tu = t*(msc/m) + B.getT()*(msc/B.getM());
+            return Simplelize(new PhanSo(tu, msc));
+        }
+        
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        PhanSo a = new PhanSo(in.nextLong(), in.nextLong());
+        System.out.println(a.Add(new PhanSo(in.nextLong(), in.nextLong())));
+    }
+}
