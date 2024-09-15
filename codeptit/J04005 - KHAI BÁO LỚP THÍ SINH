@@ -1,0 +1,32 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {
+    static class SinhVien{
+        String name, date;
+        double g1,g2,g3;
+        public SinhVien(String name, String date, double g1, double g2, double g3){
+            this.name = name;
+            this.date = date;
+            this.g1 = g1;
+            this.g2 = g2;
+            this.g3 = g3;
+        }
+        
+        @Override
+        public String toString(){
+            return name+" "+date+" "+String.format("%.1f", g1+g2+g3);
+        }
+        
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String name = in.nextLine();
+        String date = in.nextLine();
+        double g1 = in.nextDouble();
+        double g2 = in.nextDouble();
+        double g3 = in.nextDouble();
+        System.out.println(new SinhVien(name, date, g1, g2, g3).toString());
+    }
+}
