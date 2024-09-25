@@ -1,0 +1,36 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {    
+    private static Set<String> s1 = new TreeSet<>();
+    private static Set<String> s2 = new TreeSet<>();
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        in.nextLine();
+        while(n-- > 0){
+            for(String x:in.nextLine().toLowerCase().split("\\s+")){
+                s1.add(x);
+            }
+        }
+        int m = in.nextInt();
+        in.nextLine();
+        while(m-- > 0){
+            for(String x:in.nextLine().toLowerCase().split("\\s+")){
+                s2.add(x);
+            }
+        }
+        
+        Set<String> tmp = new TreeSet<>(s1);
+        s1.removeAll(s2);
+        s2.removeAll(tmp);
+        for(String x:s1){
+            System.out.print(x+" ");
+        }
+        System.out.println();
+        for(String x:s2){
+            System.out.print(x+" ");
+        }
+    }
+}
