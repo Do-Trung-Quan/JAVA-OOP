@@ -1,0 +1,24 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {    
+    private static List<Long> a = new ArrayList<>();
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            StringBuilder s = new StringBuilder(in.next());
+            for(int i=0;i<s.length();i++){
+                if(!Character.isDigit(s.charAt(i))) s.replace(i, i+1, " ");
+            }
+            for(String x:s.toString().trim().split("\\s+")){
+                a.add(Long.parseLong(x));
+            }
+        }
+        a.sort(null);
+        for(long x:a){
+            System.out.println(x);
+        }
+    }
+}
