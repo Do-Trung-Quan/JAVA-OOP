@@ -1,0 +1,30 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            int n = in.nextInt();
+            Set<Integer> s1 = new TreeSet<>();
+            Set<Integer> s2 = new TreeSet<>();
+            while(n-- > 0){
+                int tmp = in.nextInt();
+                if(tmp%2==0) s2.add(tmp);
+                else s1.add(tmp);
+            }
+            for(int x:s2){
+                System.out.print(x+" ");
+            }
+            System.out.println();
+            List<Integer> l = new ArrayList<>(s1);
+            Collections.reverse(l);
+            for(int x:l){
+                System.out.print(x+" ");
+            }
+            System.out.println();
+        }
+    }
+}
