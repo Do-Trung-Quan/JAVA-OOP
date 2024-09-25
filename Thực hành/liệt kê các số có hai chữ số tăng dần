@@ -1,0 +1,23 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String s = in.next();
+        Set<Integer> s1 = new TreeSet<>();
+        try {
+            for(int i=0;i<s.length();i+=2){
+                int tmp = Integer.parseInt(s.substring(i, i+2));
+                if(tmp < 10) break;
+                s1.add(tmp);
+            }
+        } catch (Exception e) {
+            
+        }
+        for(int x:s1){
+            System.out.print(x+" ");
+        }
+    }
+}
