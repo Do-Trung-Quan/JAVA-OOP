@@ -1,0 +1,20 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            String s = in.next();
+            long pro = 1;
+            long sum = 0;
+            for(int i=0;i<s.length();i++){
+                if(i%2==0 && s.charAt(i)!='0') pro*=s.charAt(i) - '0';
+                else if(i%2==1) sum+=s.charAt(i)-'0';
+            }
+            System.out.println(pro + " " + sum);
+        }
+    }
+}
