@@ -1,0 +1,59 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {    
+    static class SinhVien{
+        String id, name, lop, mail, sdt;
+        public SinhVien(String id, String name, String lop, String mail, String sdt){
+            this.id = id;
+            this.name = name;
+            this.lop = lop;
+            this.mail = mail;
+            this.sdt = "0"+sdt;
+        }
+        public String toString(){
+            return id+" "+name+" "+lop+" "+mail+" "+sdt;
+        }
+    }
+    
+    static class comp implements Comparator<SinhVien>{
+        public int compare(SinhVien a, SinhVien b){
+            if(a.lop.compareTo(b.lop) < 0) return -1;
+            if(a.lop.compareTo(b.lop) > 0) return 1;
+            if(a.name.compareTo(b.name) < 0) return -1;
+            if(a.name.compareTo(b.name) > 0) return 1;
+            return 0;
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        List<SinhVien> a = new ArrayList<>();
+        while(in.hasNextLine()){
+            a.add(new SinhVien(in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+        a.sort(new comp());
+        for(SinhVien x:a){
+            System.out.println(x.toString());
+        }
+    }
+}
+
+/*
+B21DCCN123
+Tran Van Toan
+D21CQCN01-B
+toantv@gmail.com
+987654321
+B21DCCN111
+Ly Van Binh
+D21CQCN01-B
+binhlv@gmail.com
+978652142
+B21DCAT661
+Hoang Tam Anh
+D21CQAT01-B
+anhht@gmail.com
+966554321
+*/
