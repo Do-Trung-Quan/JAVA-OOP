@@ -12,13 +12,13 @@ public class Solution {
             this.gap = timing(st, en);
         }
         
-        public long timing(String st, String en){
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            try {
-                Date bd = sdf.parse(st);
+        public long timing(String st, String en){      //hàm tính thời gian chênh lệch giữa st và en
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");    //sử dụng class SimpleDateFormat để sử dụng class Date
+            try {                                                   //đưa vào hàm try để check lỗi ParseException
+                Date bd = sdf.parse(st);                            //sử dụng class Date để phân tích các xâu st, en thành object của Date
                 Date kt = sdf.parse(en);
-                long res = (kt.getTime() - bd.getTime()) / (1000*60);
-                return res; 
+                long res = (kt.getTime() - bd.getTime()) / (1000*60);    //sử dụng hàm getTime() để lấy ra tổng thời gian tính bằng milisec, từ đó tính được chênh lệch giữa bd và kt theo phút
+                return res;                                         //trả về kqua
             } catch (ParseException e) {
                 e.printStackTrace();
             }
