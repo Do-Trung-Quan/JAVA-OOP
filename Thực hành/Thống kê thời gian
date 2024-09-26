@@ -1,0 +1,69 @@
+import java.text.*;
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {    
+    static class SinhVien{
+        String name;
+        long gap;
+        public SinhVien(String name, String st, String en){
+            this.name = name;
+            this.gap = timing(st, en);
+        }
+        
+        public long timing(String st, String en){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            try {
+                Date bd = sdf.parse(st);
+                Date kt = sdf.parse(en);
+                long res = (kt.getTime() - bd.getTime()) / (1000*60);
+                return res; 
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return 0;
+        }
+        
+        public String toString(){
+            return name+" "+gap;
+        }
+    }
+    
+    static class comp implements Comparator<SinhVien>{
+        public int compare(SinhVien a, SinhVien b){
+            if(a.gap > b.gap) return -1;
+            if(a.gap < b.gap) return 1;
+            if(a.name.compareTo(b.name) < 0) return -1;
+            if(a.name.compareTo(b.name) > 0) return 1;
+            return 0;
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<SinhVien> a = new ArrayList<>();
+        in.nextLine();
+        while(t-- > 0){
+            a.add(new SinhVien(in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+        a.sort(new comp());
+        for(SinhVien x:a){
+            System.out.println(x.toString());
+        }
+    }
+}
+
+/*
+3
+Do Viet Anh
+11/12/2021 16:35:00
+11/12/2021 17:35:00
+Le Tuan Anh
+11/12/2021 16:45:00
+11/12/2021 18:15:00
+Nguyen Tuan Anh
+11/12/2021 17:00:00
+11/12/2021 19:15:00
+*/
