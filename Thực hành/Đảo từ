@@ -1,0 +1,20 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        String str = in.nextLine();
+        while(t-- > 0){
+            String[] s = in.nextLine().split("\\s+");
+            List<String> a = new ArrayList<>(Arrays.asList(s));
+            for(String x:a.reversed()){
+                System.out.print(x+" ");
+            }
+            System.out.println();
+        }
+    }
+}
