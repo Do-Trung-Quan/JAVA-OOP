@@ -1,0 +1,16 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {       
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String res = "";
+        while(in.hasNext()){
+            String tmp = in.next();
+            if(tmp.length() > res.length()) res = tmp;
+        }
+        System.out.println(res+" - "+res.length());
+        
+    }
+}
