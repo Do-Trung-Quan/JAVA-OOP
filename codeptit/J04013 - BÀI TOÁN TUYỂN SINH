@@ -1,0 +1,55 @@
+import java.util.*;
+import java.io.*;
+
+public class Solution{
+    static Map<String, Double> mp = new HashMap<>();
+    static class Diem {
+        String id, name;
+        double diem, adv;
+        
+        public Diem(String id, String name, double toan, double ly, double hoa){
+            this.id = id;
+            this.name = name;
+            this.diem = toan*2 + ly + hoa;
+            this.adv = mp.get(id.substring(0,3));
+        }
+        
+        public String status(){
+            if(diem+adv < 24) return "TRUOT";
+            else return "TRUNG TUYEN";
+        }
+        
+        public String adjust(double n){
+            if(n - (int)n == 0) return Integer.toString((int)n);
+            else return String.format("%.1f", n);
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+adjust(adv)+" "+adjust(diem)+" "+status();
+        }
+    } 
+   
+    
+    public static void main(String[] args) {
+        mp.put("KV1", 0.5);
+        mp.put("KV2", 1.0);
+        mp.put("KV3", 2.5);
+        Scanner in = new Scanner(System.in);
+        System.out.println(new Diem(in.nextLine(), in.nextLine(), in.nextDouble(), in.nextDouble(), in.nextDouble()));
+    }
+    
+    /*
+KV2A002
+Hoang Thanh Tuan
+5
+6
+5
+    *
+KV2B123
+Ly Thi Thu Ha
+8
+6.5
+7
+    */
+}
