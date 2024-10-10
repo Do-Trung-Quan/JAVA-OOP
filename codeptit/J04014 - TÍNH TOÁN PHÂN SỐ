@@ -1,0 +1,55 @@
+import java.util.*;
+import java.io.*;
+
+public class Solution{
+    static long gcd(long a, long b){
+        if(b == 0) return a;
+        return gcd(b, a%b);
+    }
+    
+    static class PhanSo {
+        long tu, mau;
+        public PhanSo(long x, long y){
+            this.tu = x;
+            this.mau = y;
+        }
+        
+        public PhanSo simplyfy(long a, long b){
+            long tmp = gcd(a, b);
+            return new PhanSo(a/tmp, b/tmp);
+        }
+        
+        public PhanSo Tong(PhanSo a, PhanSo b){
+            long T = b.tu*a.mau + a.tu*b.mau;
+            long M = a.mau*b.mau;
+            return simplyfy(T, M);
+        }
+        
+        public PhanSo Tich(PhanSo a, PhanSo b){
+            long T = b.tu*a.tu;
+            long M = a.mau*b.mau;
+            return simplyfy(T, M);
+        }
+        
+        public PhanSo C(PhanSo A,PhanSo B){
+            return Tich(Tong(A, B), Tong(A, B));
+        }
+        
+        public PhanSo D (PhanSo A, PhanSo B){
+            return Tich(C(A,B), Tich(A, B));
+        }
+    } 
+   
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            PhanSo A = new PhanSo(in.nextLong(), in.nextLong());
+            PhanSo B = new PhanSo(in.nextLong(), in.nextLong());
+            PhanSo C = A.C(A, B);
+            PhanSo D = A.D(A, B);
+            System.out.println(C.tu+"/"+C.mau +" "+D.tu+"/"+D.mau);
+        }
+    }
+}
