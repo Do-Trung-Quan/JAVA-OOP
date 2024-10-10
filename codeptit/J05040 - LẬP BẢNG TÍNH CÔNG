@@ -1,0 +1,67 @@
+import java.util.*;
+import java.io.*;
+
+public class Solution{
+    static Map<String, Integer> mp = new HashMap<>();
+    static class Staff{
+        String id, name, pos;
+        int sal, day;
+        
+        public Staff(int id, String name, int sal, int day, String pos){
+            this.id = String.format("NV%02d", id);
+            this.name = name;
+            this.sal = sal;
+            this.day = day;
+            this.pos = pos;
+        }
+        
+        public int thuong(){
+            int thuong = day * sal;
+            if(day >= 25) thuong *= (double)1/5;
+            else if(this.day >= 22 && this.day < 25) thuong *= (double)1/10;
+            else thuong = 0;
+            return thuong;
+        }
+        
+        public int Luong(){
+            int res = this.day * this.sal + thuong() + mp.get(pos);
+            return res;
+        }
+        
+        @Override
+        public String toString(){
+            return id + " " + name + " " + (day*sal) + " " + thuong() + " " + mp.get(pos) + " " + Luong();
+        }
+    } 
+   
+    
+    public static void main(String[] args) {
+        mp.put("GD", 250000);
+        mp.put("PGD", 200000);
+        mp.put("TP", 180000);
+        mp.put("NV", 150000);
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        for(int i=1;i<=t;i++){
+            in.nextLine();
+            System.out.println((new Staff(i, in.nextLine(), in.nextInt(), in.nextInt(), in.next()).toString()));
+        }
+        
+    }
+    
+    /*
+3
+Cao Van Vu
+50000
+26
+GD
+Do Van Truong
+40000
+25
+PGD
+Truong Thi Tu Linh
+45000
+22
+NV
+    */
+}
