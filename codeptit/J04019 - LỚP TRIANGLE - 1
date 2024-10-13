@@ -1,0 +1,88 @@
+import java.util.*;
+import java.io.*;
+
+public class Solution{
+    static class Point{
+        double x,y;
+        
+        public Point(double x, double y){
+            this.x = x;
+            this.y = y;
+        }
+        
+        static Point nextPoint(Scanner sc){
+            return new Point(sc.nextDouble(), sc.nextDouble());
+        }
+    } 
+    
+    static class Triangle{
+        Point a,b,c;
+        public Triangle(Point a, Point b, Point c){
+            this.a = a;
+            this.b = b;
+            this.c = c;
+        }
+        
+        public double dist(Point A, Point B){
+            return Math.sqrt(Math.pow(A.x - B.x, 2) + Math.pow(A.y - B.y, 2));
+        }
+        
+        public boolean valid(){
+            double AB = dist(a, b);
+            double AC = dist(a, c);
+            double BC = dist(b, c);
+            if(AB >= AC+BC || AC >= AB+BC || BC >= AC+AB) return false;
+            return true;
+        }
+        
+        public String getPerimeter(){
+            double AB = dist(a, b);
+            double AC = dist(a, c);
+            double BC = dist(b, c);
+            return String.format("%.3f", AB+AC+BC);
+        }
+    }
+    
+   
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-- >0){
+            Triangle a = new Triangle(Point.nextPoint(sc), Point.nextPoint(sc), Point.nextPoint(sc));
+            if(!a.valid()){
+                System.out.println("INVALID");
+            } else{
+                System.out.println(a.getPerimeter());
+            }
+        }
+    }
+    public static void main41921(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-- >0){
+            Triangle a = new Triangle(Point.nextPoint(sc), Point.nextPoint(sc), Point.nextPoint(sc));
+            if(!a.valid()){
+                System.out.println("INVALID");
+            } else{
+                System.out.println(a.getPerimeter());
+            }
+        }
+    }
+    
+    /*
+3
+Cao Van Vu
+50000
+26
+GD
+Do Van Truong
+40000
+25
+PGD
+Truong Thi Tu Linh
+45000
+22
+NV
+    */
+}
