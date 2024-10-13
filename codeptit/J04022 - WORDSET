@@ -1,0 +1,44 @@
+import java.util.*;
+import java.io.*;
+
+public class Solution{
+    static class WordSet{
+        Set<String> s = new TreeSet<>();
+        public WordSet(String a){
+            for(String x:a.trim().toLowerCase().split("\\s+")){
+                this.s.add(x);
+            }
+        }
+        
+        public String union(WordSet ws){
+            Set<String> tmp = new TreeSet<>(this.s);
+            tmp.addAll(ws.s);
+            StringBuilder res = new StringBuilder();
+            for(String x:tmp) res.append(x+" ");
+            return res.toString().trim();
+        }
+        
+        public String intersection(WordSet ws){
+            Set<String> tmp = new TreeSet<>(this.s);
+            tmp.retainAll(ws.s);
+            StringBuilder res = new StringBuilder();
+            for(String x:tmp) res.append(x+" ");
+            return res.toString().trim();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        WordSet s1 = new WordSet(in.nextLine());
+        WordSet s2 = new WordSet(in.nextLine());
+        System.out.println(s1.union(s2));
+        System.out.println(s1.intersection(s2));
+    }
+    public static void main4756479(String[] args) {
+        Scanner in = new Scanner(System.in);
+        WordSet s1 = new WordSet(in.nextLine());
+        WordSet s2 = new WordSet(in.nextLine());
+        System.out.println(s1.union(s2));
+        System.out.println(s1.intersection(s2));
+    }
+}
