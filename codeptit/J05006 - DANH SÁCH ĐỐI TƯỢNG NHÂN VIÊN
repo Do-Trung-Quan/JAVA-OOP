@@ -1,0 +1,55 @@
+import java.util.*;
+import java.io.*;
+
+
+public class Solution{
+    static class NhanVien{
+        String id, name, sex, dob, add, tax, date;
+        
+        public NhanVien(int id, String name, String sex, String dob, String add, String tax, String date){
+            this.id = String.format("%05d", id);
+            this.name = name;
+            this.sex = sex;
+            this.dob = dob;
+            this.add = add;
+            this.tax = tax;
+            this.date = date;
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+sex+" "+dob+" "+add+" "+tax+" "+date; 
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        in.nextLine();
+        for(int i=1;i<=t;i++){
+            System.out.println(new NhanVien(i, in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+    }
+}
+
+/*
+3
+Nguyen Van A
+Nam
+22/10/1982
+Mo Lao-Ha Dong-Ha Noi
+8333012345
+31/12/2013
+Ly Thi B
+Nu
+15/10/1988
+Mo Lao-Ha Dong-Ha Noi
+8333012346
+22/08/2011
+Hoang Thi C
+Nu
+04/02/1981
+Mo Lao-Ha Dong-Ha Noi
+8333012347
+22/08/2011
+*/
