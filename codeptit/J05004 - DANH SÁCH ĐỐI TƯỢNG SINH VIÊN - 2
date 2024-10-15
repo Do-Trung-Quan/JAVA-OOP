@@ -1,0 +1,57 @@
+import java.util.*;
+import java.io.*;
+
+
+public class Solution{
+    static class SinhVien{
+        String id, name, lop, dob;
+        String gpa;
+        
+        public SinhVien(int id, String name, String lop, String dob, double gpa){
+            this.id = String.format("B20DCCN%03d", id);
+            this.name = chuanhoaName(name.trim());
+            this.lop = lop;
+            this.dob = chuanhoa(dob);
+            this.gpa = String.format("%.2f", gpa);
+        }
+        
+        public String chuanhoaName(String name){
+            String[] arr = name.split("\\s+");
+            for(int i=0;i<arr.length;i++){
+                arr[i] = arr[i].substring(0,1).toUpperCase() + arr[i].substring(1).toLowerCase();
+            }
+            name = String.join(" ", arr);
+            return name;
+        }
+        
+        public String chuanhoa(String a){
+            String[] arr = (a.split("/"));
+            if(arr[0].length() < 2) arr[0] = "0"+arr[0];
+            if(arr[1].length() < 2) arr[1] = "0"+arr[1];
+            a = String.join("/", arr);
+            return a;
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+lop+" "+dob+" "+gpa; 
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+//        in.nextLine();
+        for(int i=1;i<=t;i++){
+            in.nextLine();
+            System.out.println(new SinhVien(i, in.nextLine(), in.nextLine(), in.nextLine(), in.nextDouble()));
+        }
+    }
+}
+
+/*
+nGuyEn  vaN    biNH
+D20CQCN01-B
+2/12/2002
+3.1
+*/
