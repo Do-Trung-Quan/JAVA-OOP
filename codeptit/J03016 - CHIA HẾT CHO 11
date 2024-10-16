@@ -1,0 +1,22 @@
+import java.util.*;
+import java.io.*;
+import java.math.BigInteger;
+
+
+public class Solution{
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        for(int i=1;i<=t;i++){
+            BigInteger s = new BigInteger(in.next());
+            if(s.mod(new BigInteger("11")).equals(BigInteger.ZERO)) System.out.println(1);
+            else System.out.println(0);
+        }
+    }
+}
+
+/*
+2
+76945
+363588395960667043875487
+*/
