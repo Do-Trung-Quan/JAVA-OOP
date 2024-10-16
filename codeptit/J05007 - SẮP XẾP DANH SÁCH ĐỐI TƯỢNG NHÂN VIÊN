@@ -1,0 +1,79 @@
+import java.util.*;
+import java.io.*;
+import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+
+public class Solution{
+    static class NhanVien implements Comparable<NhanVien>{
+        String id, name, sex, dob, add, tax, date;
+        public NhanVien(int id, String name, String sex, String dob, String add, String tax, String date){
+            this.id = String.format("%05d", id);
+            this.name = name;
+            this.sex = sex;
+            this.dob = dob;
+            this.add = add;
+            this.tax = tax;
+            this.date = date;
+        }
+        
+        public long age(){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date a = sdf.parse(dob);
+                return a.getTime();
+                
+            } catch (ParseException e) {
+                return 0;
+            }
+        }
+        
+        public int compareTo(NhanVien b){
+            if(this.age() < b.age()) return -1;
+            if(this.age() > b.age()) return 1;
+            return 0;
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+sex+" "+dob+" "+add+" "+tax+" "+date;
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        in.nextLine();
+        List<NhanVien> a = new ArrayList<>();
+        for(int i = 1;i<=t;i++){
+            a.add(new NhanVien(i, in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+        Collections.sort(a);
+        for(NhanVien x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+Nguyen Van A
+Nam
+22/10/1982
+Mo Lao-Ha Dong-Ha Noi
+8333012345
+31/12/2013
+Ly Thi B
+Nu
+15/10/1988
+Mo Lao-Ha Dong-Ha Noi
+8333012346
+22/08/2011
+Hoang Thi C
+Nu
+04/02/1981
+Mo Lao-Ha Dong-Ha Noi
+8333012347
+22/08/2011
+*/
