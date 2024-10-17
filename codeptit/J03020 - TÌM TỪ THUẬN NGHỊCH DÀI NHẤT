@@ -1,0 +1,27 @@
+import java.util.*;
+import java.io.*;
+
+public class Solution{
+    static Map<String, Integer> mp = new LinkedHashMap<>();
+    static boolean check(String s){
+        StringBuilder S = new StringBuilder(s).reverse();
+        if(s.equals(S.toString())) return true;
+        return false;
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int m = 0;
+        while(in.hasNextLine()){
+            String s = in.nextLine();
+            for(String x:s.trim().split("\\s+")){
+                if(x.length()>=m && check(x)){
+                    mp.put(x, mp.getOrDefault(x, 0)+1);
+                    m = x.length();
+                }
+            }
+        }
+        for(String x:mp.keySet()){
+            if(x.length() == m) System.out.println(x+" "+mp.get(x));
+        }
+    }
+}
