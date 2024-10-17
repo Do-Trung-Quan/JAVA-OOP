@@ -1,0 +1,65 @@
+import java.util.*;
+import java.io.*;
+
+
+public class Solution{
+    static List<SinhVien> a = new ArrayList<>();
+    static class SinhVien{
+        int id;
+        String name, dob;
+        double g1, g2, g3;
+        
+        public SinhVien(int id, String name, String dob, double g1, double g2, double g3){
+            this.id = id;
+            this.name = name;
+            this.dob = dob;
+            this.g1 = g1;
+            this.g2 = g2;
+            this.g3 = g3;
+        }
+        
+        public double Tong(){
+            return g1+g2+g3;
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+dob+" "+Tong();
+        }
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        double m = 0;
+        for(int i=1;i<=t;i++){
+            in.nextLine();
+            SinhVien tmp = new SinhVien(i, in.nextLine(), in.nextLine(), in.nextDouble(), in.nextDouble(), in.nextDouble());
+            a.add(tmp);
+            m = Math.max(m, tmp.Tong());
+        }
+        
+        for(SinhVien x:a){
+            if(x.Tong() == m) System.out.println(x);
+        }
+        
+    }
+}
+
+/*
+3
+Nguyen Van A
+12/12/1994
+3.5
+7.0
+5.5
+Nguyen Van B
+1/9/1994
+7.5
+9.5
+9.5
+Nguyen Van C
+6/7/1994
+8.5
+9.5
+8.5
+*/
