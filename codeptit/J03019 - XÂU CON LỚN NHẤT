@@ -1,0 +1,28 @@
+import java.util.*;
+import java.io.*;
+
+
+public class Solution{
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String s = in.next();
+        Set<Character> se = new TreeSet<>();
+        for(char x:s.toCharArray()){
+            se.add(x);
+        }
+        List<Character> a = new ArrayList<>(se);
+        Collections.reverse(a);                       // a là danh sách lưu các kí tự khác nhau trong xâu s theo thứ tự giảm dần
+        StringBuilder res = new StringBuilder();
+        
+        int st = 0;
+        for(char x:a){
+            int lim = s.lastIndexOf(x);
+            if(lim < st) continue;
+            for(int i = st;i<=lim;i++){
+                if(s.charAt(i) == x) res.append(x);
+            }
+            st = lim+1;
+        }
+        System.out.println(res);
+    }
+}
