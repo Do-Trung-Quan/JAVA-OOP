@@ -1,0 +1,51 @@
+import java.util.*;
+import java.io.*;
+
+
+public class Solution{
+    static Map<String, Integer> mp = new HashMap<>();
+    public static void main(String[] args) {
+        mp.put("I", 1);
+        mp.put("V", 5);
+        mp.put("X", 10);
+        mp.put("L", 50);
+        mp.put("C", 100);
+        mp.put("D", 500);
+        mp.put("M", 1000);
+        mp.put("IV", 4);
+        mp.put("IX", 9);
+        mp.put("XL", 40);
+        mp.put("XC", 90);
+        mp.put("CD", 400);
+        mp.put("CM", 900);
+        
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            String s = in.next();
+            int num = 0;
+            int res = 0;
+            while(num < s.length()){
+                int tmp = 0;
+                
+                if(num<s.length()-1){
+                    String dig = s.substring(num, num+2);
+                    if(mp.get(dig) != null){
+                        tmp = mp.get(dig);
+                        num+=2;
+                    }else {
+                        tmp = mp.get(Character.toString(s.charAt(num))); 
+                        num++;
+                    }
+                }else {
+                    tmp = mp.get(Character.toString(s.charAt(num))); 
+                    num++;
+                }
+                res+=tmp;
+            }
+            System.out.println(res);
+        }
+        
+    }
+}
+
