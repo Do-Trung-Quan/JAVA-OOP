@@ -1,0 +1,30 @@
+import java.util.*;
+import java.io.*;
+
+
+public class Solution{
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        StringBuilder s = new StringBuilder();
+        while(in.hasNextLine()){
+            s.append(in.nextLine());
+            s.append(" ");
+        }
+        for(String x:s.toString().trim().toLowerCase().split("[.!?]")){
+            StringBuilder line = new StringBuilder();
+            for(String y:x.trim().split("\\s+")){
+                line.append(y+" ");
+            }
+            line.trimToSize();
+            line.replace(0, 1, line.substring(0, 1).toUpperCase());
+            System.out.println(line.toString());
+        }
+    }
+}
+
+/*
+ky thi LAP TRINH ICPC PTIT  bat dau to chuc     tu     nam 
+2010. nhu vay, nam nay la          tron 10 nam!
+    vay CO PHAI NAM NAY LA KY THI LAN THU 10?        khong
+phai! nam nay la KY THI LAN THU 11.    
+*/
