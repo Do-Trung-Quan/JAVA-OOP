@@ -1,0 +1,67 @@
+import java.util.*;
+import java.io.*;
+
+
+public class Solution{
+    static List<BanHang> a = new ArrayList<>();
+    
+    static class BanHang implements Comparable<BanHang>{
+        int id;
+        String name, type;
+        double in, out;
+        
+        public BanHang(int id, String name, String type, double in, double out){
+            this.id = id;
+            this.name = name;
+            this.type = type;
+            this.in = in;
+            this.out = out;
+        }
+        
+        public double profit(){
+            return out - in;
+        }
+        
+        @Override
+        public int compareTo(BanHang b){
+            if(this.profit() < b.profit()) return 1;
+            if(this.profit() > b.profit()) return -1;
+            return 0;
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+type+" "+String.format("%.2f", profit());
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        for(int i=1;i<=t;i++){
+            in.nextLine();
+            a.add(new BanHang(i, in.nextLine(), in.nextLine(), in.nextDouble(), in.nextDouble()));
+        }
+        Collections.sort(a);
+        for(BanHang x:a){
+            System.out.println(x);
+        }
+        
+    }
+}
+
+/*
+3
+May tinh SONY VAIO
+Dien tu
+16400
+17699
+Tu lanh Side by Side
+Dien lanh
+18300
+25999
+Banh Chocopie
+Tieu dung
+27.5
+37   
+*/
