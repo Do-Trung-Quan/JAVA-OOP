@@ -1,0 +1,71 @@
+import java.util.*;
+import java.io.*;
+import java.text.SimpleDateFormat;   //thư viện phân tích các string dạng Date
+
+
+import java.text.SimpleDateFormat;
+public class Solution{
+    static class Gamer implements Comparable<Gamer>{
+        String id, name, in, out;
+        public Gamer(String id, String name, String in, String out){
+            this.id = id;
+            this.name = name;
+            this.in = in;
+            this.out = out;
+        }
+
+        public long gap(){
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");   //phân tích các string dạng date theo from hh:mm (giờ/phút)
+            try {
+                Date In = sdf.parse(this.in);  //lưu kiểu giá trị date sau khi phân tích = sdf
+                Date Out = sdf.parse(this.out);
+                long gap = (Out.getTime() - In.getTime()) / (1000*60);   //tính khoảng thời gian = hàm getTime() trả về đơn vị milisec, sau đó chia cho 1000*60 để đổi về đơn vị phút
+                return gap;
+            } catch (Exception e) {
+                return 0;
+            }
+        }
+        
+        @Override
+        public int compareTo(Gamer b){
+            if(this.gap() < b.gap()) return 1;
+            if(this.gap() > b.gap()) return -1;
+            return 0;
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+Long.toString(gap()/60)+" gio "+Long.toString(gap()%60)+" phut";
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        in.nextLine();
+        List<Gamer> a = new ArrayList<>();
+        while(t-- > 0){
+            a.add(new Gamer(in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+        Collections.sort(a);
+        for(Gamer x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+01T
+Nguyen Van An
+09:00
+10:30
+06T
+Hoang Van Nam
+15:30
+18:00
+02I
+Tran Hoa Binh
+09:05
+10:00
+*/
