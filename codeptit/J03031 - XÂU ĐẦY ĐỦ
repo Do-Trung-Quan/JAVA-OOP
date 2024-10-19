@@ -1,0 +1,31 @@
+import java.util.*;
+import java.io.*;
+
+
+public class Solution{
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            String s = in.next();
+            int k = in.nextInt();
+            if(s.length() >= 26){          //phải có từ 26 kĩ tự trở lên mới đủ để chứa toàn bộ kí tự bảng chữ cái
+                Set<Character> se = new HashSet<>();  //lưu các kí tự khác nhau trong s
+                for(char x:s.toCharArray()){
+                    se.add(x);
+                }
+                if(k < 26 - se.size()) System.out.println("NO");   //nếu số bước >= số kí tự còn thiếu --> YES, ngược lại NO
+                else System.out.println("YES");
+            }else System.out.println("NO");
+        }
+        
+    }
+}
+
+/*
+2
+qwqqwqeqqwdsdadsdasadsfsdsdsdasasas
+4
+qwqqwqeqqwdsdadsdasadsfsdsdsdasasas
+24
+*/
