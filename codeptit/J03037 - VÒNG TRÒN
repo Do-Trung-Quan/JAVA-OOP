@@ -1,0 +1,30 @@
+import java.util.*;
+import java.io.*;
+
+public class Solution{
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        StringBuilder s = new StringBuilder(in.next());
+        int res = 0;
+        while(s.length()>0){
+            Set<Character> se = new HashSet<>();
+            for(char x:s.toString().toCharArray()){
+               if(se.contains(x) && x == s.charAt(0)){
+                   break;
+               }
+               if(se.contains(x)) res--;
+               else if(x != s.charAt(0)){
+                   res++;
+                   se.add(x);
+               }else se.add(x);
+            } 
+            s.deleteCharAt(s.lastIndexOf(Character.toString(s.charAt(0))));
+            s.deleteCharAt(0);
+        }
+        System.out.println(res);
+    }
+}
+
+/*
+ABCCABDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTTUUVVWWXXYYZZ
+*/
