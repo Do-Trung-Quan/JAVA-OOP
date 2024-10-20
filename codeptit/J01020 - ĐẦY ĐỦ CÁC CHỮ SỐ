@@ -1,0 +1,38 @@
+import java.util.*;
+import java.io.*;
+import java.math.BigInteger;
+
+public class Solution{
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            BigInteger n = new BigInteger(in.next());
+            BigInteger primaryN = n;
+            if(n.equals(BigInteger.ZERO)){
+                System.out.println("Impossible");
+                continue;
+            }
+            Set<Character> s = new HashSet<>();
+            for(char x:n.toString().toCharArray()){
+                s.add(x);
+            }
+            while(s.size()<10){
+                n = n.add(primaryN);
+                for(char x:n.toString().toCharArray()){
+                    s.add(x);
+                }
+            }
+            System.out.println(n);
+        }
+    }
+}
+
+/*
+5
+0
+1
+2
+11
+1692
+*/
