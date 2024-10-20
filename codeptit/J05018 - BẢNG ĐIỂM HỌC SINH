@@ -1,0 +1,75 @@
+import java.util.*;
+import java.io.*;
+
+public class Solution{
+    static class HocSinh implements Comparable<HocSinh>{
+        static int cnt = 1;
+        String id, name;
+        double[] grade = new double[10];
+        
+        public HocSinh(String name, double[] grade){
+            this.id = String.format("HS%02d", cnt++);
+            this.name = name;
+            this.grade = grade;
+        }
+        
+        public double gpa(){
+            double res = 0;
+            for(int i=0;i<10;i++){
+                if(i<2) res+=grade[i]*2;
+                else res+=grade[i];
+            }
+            return res/12;
+        }
+        
+        public String rank(){
+            double gpa = gpa();
+            if(gpa >= 9) return "XUAT SAC";
+            if(gpa >= 8) return "GIOI";
+            if(gpa >= 7) return "KHA";
+            if(gpa >= 5) return "TB";
+            return "YEU";
+        }
+        
+        @Override
+        public int compareTo(HocSinh b){
+            if(this.gpa() < b.gpa()) return 1;
+            if(this.gpa() > b.gpa()) return -1;
+            return 0;
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+String.format("%.1f", gpa()+0.00001)+" "+rank();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<HocSinh> a = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            String name = in.nextLine();
+            double[] gr = new double[10];
+            for(int i=0;i<10;i++){
+                gr[i] = in.nextDouble();
+            }
+            a.add(new HocSinh(name, gr));
+        }
+        Collections.sort(a);
+        for(HocSinh x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+Luu Thuy Nhi
+9.3  9.0  7.1  6.5  6.2  6.0  8.2  6.7  4.8  5.5
+Le Van Tam
+8.0  8.0  5.5  9.0  6.8  9.0  7.2  8.3  7.2  6.8
+Nguyen Thai Binh
+9.0  6.4  6.0  7.5  6.7  5.5  5.0  6.0  6.0  6.0
+*/
