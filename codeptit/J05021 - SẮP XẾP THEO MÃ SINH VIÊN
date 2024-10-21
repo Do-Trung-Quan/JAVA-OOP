@@ -1,0 +1,54 @@
+import java.math.BigInteger; 
+import java.util.*; 
+
+public class Solution { 
+    static class SinhVien implements Comparable<SinhVien>{
+        String id, name, lop, mail;
+        public SinhVien(String id, String name, String lop, String mail){
+            this.id = id;
+            this.name = name;
+            this.lop = lop;
+            this.mail = mail;
+        }
+        
+        public int compareTo(SinhVien b){
+            return this.id.compareTo(b.id);
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+lop+" "+mail;
+        }
+    }
+    
+    public static void main(String[] args) { 
+        Scanner in= new Scanner(System.in); 
+        List<SinhVien> a = new ArrayList<>();
+        while(in.hasNextLine()){
+            a.add(new SinhVien(in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+        Collections.sort(a);
+        for(SinhVien x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+B16DCCN011
+Nguyen Trong Duc Anh
+D16CNPM1
+sv1@stu.ptit.edu.vn
+B15DCCN215
+To Ngoc Hieu
+D15CNPM3
+sv2@stu.ptit.edu.vn
+B15DCKT150
+Nguyen Ngoc Son
+D15CQKT02-B
+sv3@stu.ptit.edu.vn
+B15DCKT199
+Nguyen Trong Tung
+D15CQKT03-B
+sv4@stu.ptit.edu.vn
+*/
