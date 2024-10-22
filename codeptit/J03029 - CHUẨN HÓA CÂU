@@ -1,0 +1,30 @@
+import java.math.BigInteger; 
+import java.util.*; 
+
+public class Solution {     
+    public static void main(String[] args) { 
+        Scanner in= new Scanner(System.in); 
+        while(in.hasNextLine()){
+            String s = in.nextLine().trim();
+            char dau = s.charAt(s.length()-1);
+            if(Character.isAlphabetic(dau)) dau = '.';
+            String res = "";
+            for(String x:s.toLowerCase().trim().split("[!?.]")){
+                for(String y:x.trim().split("\\s+")){
+                    res+=y+" ";
+                }
+                res = res.trim();
+                res = res.substring(0,1).toUpperCase() + res.substring(1) + dau;
+            }
+            System.out.println(res);
+        }
+    }
+}
+
+/*
+Chuong trinh Dao Tao CLC nganh CNTT duoc Thiet     Ke theo chuan quoc te.
+co 03 chuyen nganh la: Cong  nghe phan mem, Tri tue nhan tao va An toan thong tin?
+muc tieu cua chuong trinh la trang bi cho sinh vien    
+cac ky nang nghe nghiep  !
+moi    CAC BAN danG ky     thaM giA !
+*/
