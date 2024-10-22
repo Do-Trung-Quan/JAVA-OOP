@@ -1,0 +1,88 @@
+import java.math.BigInteger; 
+import java.util.*; 
+
+public class Solution { 
+    static class Khoa{
+        String name;
+        List<SinhVien> arr = new ArrayList<>();
+        public Khoa(String a){
+            this.name = a;
+        }
+        
+        public void addSV(SinhVien a){
+            this.arr.add(a);
+        }
+        
+        @Override
+        public String toString(){
+            String res =  "DANH SACH SINH VIEN KHOA "+this.name+":\n";
+            for(SinhVien x:this.arr){
+                res += x+"\n";
+            }
+            return res.trim();
+        }
+    }
+
+    static class SinhVien{
+        String id, name, lop, mail;
+        public SinhVien(String id, String name, String lop, String mail){
+            this.id = id;
+            this.name = name;
+            this.lop = lop;
+            this.mail = mail;
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+lop+" "+mail;
+        }
+    }
+    
+    public static void main(String[] args) { 
+        Scanner in= new Scanner(System.in); 
+        int t = in.nextInt();
+        in.nextLine();
+        List<SinhVien> A = new ArrayList<>();        
+        while(t-- > 0){
+            SinhVien sv = new SinhVien(in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine());
+            A.add(sv);
+        }
+        
+        int T =in.nextInt();
+        in.nextLine();
+        while(T-- > 0){
+            String c = in.nextLine();
+            Khoa k = new Khoa(c);
+            for(SinhVien x:A){
+                if(x.lop.substring(1, 3).equals(c.substring(2))){
+                    k.addSV(x);
+                }
+            }
+            System.out.println(k);
+        }
+    }
+}
+
+/*
+4
+B16DCCN011
+Nguyen Trong Duc Anh
+D16CNPM1
+sv1@stu.ptit.edu.vn
+B15DCCN215
+To Ngoc Hieu
+D15CNPM3
+sv2@stu.ptit.edu.vn
+B15DCKT150
+Nguyen Ngoc Son
+D15CQKT02-B
+sv3@stu.ptit.edu.vn
+B15DCKT199
+Nguyen Trong Tung
+D15CQKT02-B
+sv4@stu.ptit.edu.vn
+3
+D16CNPM1
+D15CQKT02-B
+D15CNPM3
+*/
