@@ -1,0 +1,70 @@
+import java.math.BigInteger; 
+import java.util.*; 
+
+public class Solution { 
+    static class GiangVien implements Comparable<GiangVien>{
+        String name, mon, id;
+        static int cnt=1;
+        public GiangVien(String name, String mon){
+            this.id = String.format("GV%02d", cnt++);
+            this.name = name;
+            this.mon = mon;
+        }
+        
+        public String getName(){
+            String[] a = this.name.split("\\s+");
+            return a[a.length - 1];
+        }
+        
+        public String getMajor(){
+            String res = "";
+            for(String x:this.mon.split("\\s+")){
+                res+=x.substring(0,1).toUpperCase();
+            }
+            return res;
+        }
+        
+        public int compareTo(GiangVien b){
+            return (this.getName().compareTo(b.getName()));
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+getMajor();
+        }
+    }
+    
+    public static void main(String[] args) { 
+        Scanner in= new Scanner(System.in); 
+        int t = in.nextInt();
+        in.nextLine();
+        List<GiangVien> a = new ArrayList<>();
+        while(t-- > 0){
+            a.add(new GiangVien(in.nextLine(), in.nextLine()));
+        }
+        Collections.sort(a);
+        for(GiangVien x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+4
+E16DCCN011
+Nguyen Trong Duc Anh
+D16CNPM1
+sv1@stu.ptit.edu.vn
+B15DCCN215
+To Ngoc Hieu
+D15CNPM3
+sv2@stu.ptit.edu.vn
+B15DCKT150
+Nguyen Ngoc Son
+D15CQKT02-B
+sv3@stu.ptit.edu.vn
+B15DCKT199
+Nguyen Trong Tung
+D15CQKT02-B
+sv4@stu.ptit.edu.vn
+*/
