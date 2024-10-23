@@ -1,0 +1,66 @@
+/*
+lưu 1 list chứa các xâu nhập vào
+lưu 1 map chứa các xâu khác nhau trong list và số lần phải quay nếu lấy xâu đó làm chuẩn
+- duyệt từng xâu trong map làm chuẩn, tính toán số lần phải quay và lưu giá trị tính được tương ứng vs xâu đó trong map
+- Lấy ra số lần quay bé nhất lưu được trong map (nếu có xâu ko quay được => in ra -1)
+*/
+
+import java.util.*; 
+
+public class Solution { 
+    static int rotate(String a, String cons){
+        int t = 0;
+        while (!a.equals(cons) && t < a.length()) {            
+            a = a.substring(1) + a.substring(0,1);
+            t++;
+        }
+        if(a.equals(cons)) return t;
+        return -1;
+    }
+    
+    public static void main(String[] args) { 
+        Scanner in= new Scanner(System.in); 
+        int t = in.nextInt();
+        Map<String, Integer> mp = new HashMap<>();
+        List<String> a = new ArrayList<>();
+        while (t-- > 0) {            
+            String s = in.next();
+            a.add(s);
+            mp.put(s, 0);
+        }
+        
+        int check = 0;
+        for(String tmp:mp.keySet()){
+            int num = 0;
+            for(String x:a){
+                if(x!=tmp){
+                    int rot = rotate(x,tmp);
+                    if(rot != -1) num+=rot;
+                    else{
+                        check = 1;
+                        break;
+                    }
+                }
+            }
+            if(check == 1) break;
+            mp.put(tmp, num);
+        }
+        if(check == 1) System.out.println(-1);
+        else{
+            int res = Integer.MAX_VALUE;
+            for(Integer x:mp.values()){
+                res = Math.min(res, x);
+            }
+            System.out.println(res);
+        }
+        
+        
+    }
+}
+
+/*
+xzzwo
+zwoxz
+zzwox
+xzzwo
+*/
