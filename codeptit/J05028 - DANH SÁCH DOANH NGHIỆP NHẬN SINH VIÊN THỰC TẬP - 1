@@ -1,0 +1,56 @@
+
+import java.util.*; 
+
+public class Solution { 
+    static class DoanhNghiep implements Comparable<DoanhNghiep>{
+        String id, name;
+        int num;
+        public DoanhNghiep(String id, String name, int num){
+            this.id = id;
+            this.name = name;
+            this.num = num;
+        }
+        
+        @Override
+        public int compareTo(DoanhNghiep b){
+            if(this.num != b.num) return b.num - this.num;
+            else return this.id.compareTo(b.id);
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+num;
+            
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<DoanhNghiep> a = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new DoanhNghiep(in.nextLine(), in.nextLine(), in.nextInt()));
+        }
+        Collections.sort(a);
+        for(DoanhNghiep x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+4
+VIETTEL
+TAP DOAN VIEN THONG QUAN DOI VIETTEL
+40
+FSOFT
+CONG TY TNHH PHAN MEM FPT - FPT SOFTWARE
+300
+VNPT
+TAP DOAN BUU CHINH VIEN THONG VIET NAM
+200
+SUN
+SUN*
+50
+*/
