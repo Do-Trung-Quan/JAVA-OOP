@@ -1,0 +1,68 @@
+import java.math.BigInteger; 
+import java.util.*; 
+
+public class Solution { 
+    static class GiangVien{
+        static int cnt = 1;
+        String id, name, mon;
+        public GiangVien(String name, String mon){
+            this.id = String.format("GV%02d", cnt++);
+            this.name = name;
+            this.mon = mon;
+        }
+        
+        public String getMon(){
+            String res = "";
+            for(String x:this.mon.trim().split("\\s+")){
+                res+=x.substring(0,1).toUpperCase();
+            }
+            return res;
+        }
+        
+        public String getMon(String n){
+            String res = "";
+            for(String x:n.trim().split("\\s+")){
+                res+=x.substring(0,1).toUpperCase();
+            }
+            return res;
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+getMon();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        in.nextLine();
+        List<GiangVien> a = new ArrayList<>();
+        while(t-- > 0){
+            a.add(new GiangVien(in.nextLine(),in.nextLine()));
+        }
+        int t2 = in.nextInt();
+        in.nextLine();
+        while(t2-- > 0){
+            String c = in.nextLine();
+            System.out.println("DANH SACH GIANG VIEN BO MON "+a.get(0).getMon(c)+":");
+            for(GiangVien x:a){
+                if(x.mon.equals(c)){
+                    System.out.println(x);
+                }
+            }
+        }
+    }
+}
+
+/*
+3
+Nguyen Manh Son
+Cong nghe phan mem
+Vu Hoai Nam
+Khoa hoc may tinh
+Dang Minh Tuan
+Cong nghe phan mem
+1
+Cong nghe phan mem
+*/
