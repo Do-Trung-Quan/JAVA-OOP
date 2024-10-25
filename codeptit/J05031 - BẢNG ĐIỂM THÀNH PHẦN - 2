@@ -1,0 +1,65 @@
+import java.util.*; 
+
+public class Solution { 
+    static class SinhVien implements Comparable<SinhVien>{
+        static int cnt = 1;
+        String id, name, lop;
+        double g1, g2, g3;
+        public SinhVien(String id, String name, String lop, double g1, double g2, double g3){
+            this.id = id;
+            this.name = name;
+            this.lop = lop;
+            this.g1 = g1;
+            this.g2 = g2;
+            this.g3 = g3;
+        }
+        
+        @Override
+        public int compareTo(SinhVien b){
+            return this.name.compareTo(b.name);
+        }
+        
+        @Override
+        public String toString(){
+            return (cnt++)+" "+id+" "+name+" "+lop+" "+String.format("%.1f", g1)+" "+String.format("%.1f", g2)+" "+String.format("%.1f", g3);
+            
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<SinhVien> a = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new SinhVien(in.nextLine(), in.nextLine(), in.nextLine(), in.nextDouble(), in.nextDouble(), in.nextDouble()));
+        }
+        Collections.sort(a);
+        
+        for(SinhVien x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+B20DCCN999
+Nguyen Van An
+D20CQCN04-B
+10.0
+9.0
+8.0
+B20DCAT001
+Le Van Nam
+D2CQAT02-B
+6.0
+6.0
+4.0
+B20DCCN111
+Tran Hoa Binh
+D20CQCN04-B
+9.0
+5.0
+6.0
+*/
