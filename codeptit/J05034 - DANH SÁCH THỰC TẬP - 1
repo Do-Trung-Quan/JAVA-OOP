@@ -1,0 +1,56 @@
+import java.util.*;
+
+public class Solution {
+    static class Intern implements Comparable<Intern>{
+        static int cnt = 1;
+        String id, name, lop, mail, inc;
+        int stt;
+        public Intern(String id, String name, String lop, String mail, String inc){
+            this.stt = cnt++;
+            this.id = id;
+            this.name = name;
+            this.lop = lop;
+            this.mail = mail;
+            this.inc = inc;
+        }
+        
+        @Override
+        public int compareTo(Intern b){
+            return this.name.compareTo(b.name);
+        }
+        
+        @Override
+        public String toString(){
+            return stt+" "+id+" "+name+" "+lop+" "+mail+" "+inc;
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<Intern> a = new ArrayList<>();
+        in.nextLine();
+        while(t-- > 0){
+            a.add(new Intern(in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+        Collections.sort(a);
+        int n = in.nextInt();
+        while(n-- > 0){
+            String tmp = in.next();
+            for(Intern x:a){
+                if(x.inc.equals(tmp)){
+                    System.out.println(x);
+                }
+            }
+        }
+    }
+}
+
+/*
+5
+Nam 01/10/1991
+An 30/12/1990
+Binh 15/08/1993
+Tam 18/09/1990
+Truong 20/09/1990
+*/
