@@ -1,0 +1,46 @@
+import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+public class Solution {
+    static class Person implements Comparable<Person>{
+        String name, dob;
+        public Person(String name, String dob){
+            this.name = name;
+            this.dob = dob;
+        }
+        
+        public long age(){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date d = sdf.parse(this.dob);
+                return d.getTime();
+            } catch (ParseException e) {
+                return 0;
+            }
+        }
+        
+        @Override
+        public int compareTo(Person b){
+            if(this.age() < b.age()) return -1;
+            if(this.age() > b.age()) return 1;
+            return 0;
+        }
+        
+        @Override
+        public String toString(){
+            return this.name;
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<Person> a = new ArrayList<>();
+        while(t-- > 0){
+            a.add(new Person(in.next(), in.next()));
+        }
+        System.out.println(Collections.max(a));
+        System.out.println(Collections.min(a));
+    }
+}
