@@ -1,0 +1,63 @@
+import java.util.*;
+
+public class Solution {
+    static class GiaBan{
+        static int cnt = 1;
+        String id,name, unit;
+        long dg, sl;
+        
+        public GiaBan(String name, String unit, long dg, long sl){
+            this.id = String.format("MH%02d", cnt++);
+            this.name = name;
+            this.unit = unit;
+            this.dg = dg;
+            this.sl = sl;
+        }
+        
+        public long getPvc(){
+            return Math.round(dg * sl * 0.05);
+        }
+        
+        public long getTT(){
+            return Math.round(dg * sl + getPvc());
+        }
+        
+        public long getGia(){
+            return Math.round(getTT() + getTT() * 0.02);
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+unit+" "+getPvc()+" "+getTT()+" "+getGia();
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            in.nextLine();
+            System.out.println(new GiaBan(in.nextLine(), in.nextLine(), in.nextLong(), in.nextLong()));
+        }
+    }
+}
+
+/*
+4
+DUONG
+KG
+7500
+150
+TRUNG
+CHUC
+10000
+225
+GAO
+KG
+14000
+118
+SUA
+HOP
+48000
+430
+*/
