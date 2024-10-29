@@ -1,0 +1,85 @@
+import java.util.*;
+
+public class Solution {
+    static class NhanVien implements Comparable<NhanVien>{
+        static int cnt = 1;
+        String id,name, pos;
+        int LgNgay, day; 
+        
+        public NhanVien(String name, int LgNgay, int day, String pos){
+            this.id = String.format("NV%02d", cnt++);
+            this.name = name;
+            this.LgNgay = LgNgay;
+            this.day = day;
+            this.pos = pos;
+        }
+        
+        public int getLgThang(){
+            return LgNgay*day;
+        }
+        
+        public int getThuong(){
+            if(day >= 25) return (int)(getLgThang()*0.2);
+            if(day >= 22) return (int)(getLgThang()*0.1);
+            return 0;
+        }
+        
+        public int PhuCap(){
+            if(pos.equals("PGD")) return 200000;
+            if(pos.equals("TP")) return 180000;
+            if(pos.equals("NV")) return 150000;
+            else return 250000;
+        }
+        
+        public int sum(){
+            return getLgThang()+getThuong()+PhuCap();
+        }
+        
+        @Override
+        public int compareTo(NhanVien b){
+            return b.sum() - this.sum();
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+getLgThang()+" "+getThuong()+" "+PhuCap()+" "+sum();
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<NhanVien> a  = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new NhanVien(in.nextLine(), in.nextInt(), in.nextInt(), in.next()));
+        }
+        Collections.sort(a);
+        for(NhanVien x:a){
+            System.out.println(x);
+        }
+    }
+}
+/*
+5
+Cao Van Vu
+50000
+26
+GD
+Bui Thi Trang
+45000
+23
+PGD
+Do Van Truong
+40000
+25
+PGD
+Nguyen Van Cam
+37000
+26
+TP
+Truong Thi Tu Linh
+45000
+22
+NV
+*/
