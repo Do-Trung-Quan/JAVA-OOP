@@ -1,0 +1,73 @@
+import java.util.*;
+
+public class Solution {
+    static class NhanVien{
+        String id, name, pos;
+        int lg, day, phucap, lgThang;
+        static int cnt = 1;
+        
+        public NhanVien(String name, String pos, int lg, int day){
+            this.id = String.format("NV%02d", cnt++);
+            this.name = name;
+            this.pos = pos;
+            this.lg = lg;
+            this.day = day;
+        }
+        
+        public int getPhucap(){
+            if(this.pos.equals("GD")) return 500;
+            if(this.pos.equals("PGD")) return 400;
+            if(this.pos.equals("TP")) return 300;
+            if(this.pos.equals("KT")) return 250;
+            else return 100; 
+        }
+        
+        public int getLgThang(){
+            return this.day*this.lg;
+        }
+        
+        public int getTamUng(){
+            double res = (getLgThang()+getPhucap()) * (double)2/3 ;
+            if(res < 25000) return (int) Math.round(res/1000)*1000;
+            else return 25000;
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+getPhucap()+" "+getLgThang()+" "+getTamUng()+" "+(getLgThang()+getPhucap()-getTamUng());
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<NhanVien> a  = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new NhanVien(in.nextLine(), in.nextLine(), in.nextInt(), in.nextInt()));
+        }
+//        Collections.sort(a);
+        for(NhanVien x:a){
+            System.out.println(x);
+        }
+    }
+}
+/*
+4
+Tran Thi Yen
+NV
+1000
+24
+Nguyen Van Thanh
+BV
+1000
+30
+Doan Truong An
+TP
+3000
+25
+Le Thanh
+GD
+5000
+28
+*/
