@@ -1,0 +1,51 @@
+import java.util.*;
+
+public class Solution {
+    static class XepHang implements Comparable<XepHang>{
+        String name;
+        int ac, sub; 
+        
+        public XepHang(String name, int ac, int sub){
+            this.name = name;
+            this.ac = ac;
+            this.sub = sub;
+        }
+        
+        @Override
+        public int compareTo(XepHang b){
+            if(this.ac == b.ac && this.sub == b.sub) return this.name.compareTo(b.name);
+            if(this.ac == b.ac) return this.sub - b.sub;
+            return b.ac - this.ac;
+        }
+        
+        @Override
+        public String toString(){
+            return name+" "+ac+" "+sub;
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<XepHang> a  = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new XepHang(in.nextLine(), in.nextInt(), in.nextInt()));
+        }
+        Collections.sort(a);
+        for(XepHang x:a){
+            System.out.println(x);
+        }
+    }
+}
+/*
+4
+Nguyen Van Nam
+168 600
+Tran Thi Ngoc
+168 600
+Nguyen Van Linh
+168 700
+Tran Thi Quan 
+167 800
+*/
