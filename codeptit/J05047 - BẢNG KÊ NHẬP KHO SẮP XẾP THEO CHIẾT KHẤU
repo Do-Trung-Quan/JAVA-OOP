@@ -1,0 +1,74 @@
+import java.util.*;
+
+public class Solution{
+    static Map<String, Integer> mp = new HashMap<>();
+    static class HangHoa implements Comparable<HangHoa>{
+        String id, name;
+        int quantity, price;
+        static int cnt = 1;
+        public HangHoa(String name, int quantity, int price){
+            this.name  = name;
+            this.quantity = quantity;
+            this.price = price;
+            this.id = setId();
+        }
+        
+        public String setId(){
+            String res = "";
+            for(String x:name.split("\\s+", 2)){
+                res+=x.substring(0,1).toUpperCase();
+            }
+            mp.put(res, mp.getOrDefault(res, 0)+1);
+            return String.format(res+"%02d", mp.get(res));
+        }
+        
+        public int getChietKhau(){
+            double rateCK = 0;
+            if(quantity > 10) rateCK = 0.05;
+            else if(quantity >=8) rateCK = 0.02;
+            else if(quantity >= 5) rateCK = 0.01;
+            return (int) (price*quantity*rateCK);
+        }
+        
+        public int getCost(){
+            return price*quantity - getChietKhau();
+        }
+        
+        @Override
+        public int compareTo(HangHoa b){
+            return Integer.compare(b.getChietKhau(), this.getChietKhau());
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+getChietKhau()+" "+getCost();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<HangHoa> a = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new HangHoa(in.nextLine(), in.nextInt(), in.nextInt()));
+        }
+        Collections.sort(a);
+        for(HangHoa x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+May lanh SANYO
+12
+4000000
+Dien thoai Samsung
+30
+3230000
+Dien thoai Nokia
+18
+1240000
+*/
