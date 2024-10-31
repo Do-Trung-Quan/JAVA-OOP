@@ -1,0 +1,72 @@
+import java.util.*;
+
+public class Solution{
+    static Map<String, Integer> mp = new HashMap<>();
+    static class HangHoa{
+        String id, name;
+        int quantity, price;
+        static int cnt = 1;
+        public HangHoa(String name, int quantity, int price){
+            this.name  = name;
+            this.quantity = quantity;
+            this.price = price;
+            this.id = setId();
+        }
+        
+        public String setId(){
+            String res = "";
+            for(String x:name.split("\\s+", 2)){
+                res+=x.substring(0,1).toUpperCase();
+            }
+            mp.put(res, mp.getOrDefault(res, 0)+1);
+            return String.format(res+"%02d", mp.get(res));
+        }
+        
+        public int getChietKhau(){
+            double rateCK = 0;
+            if(quantity > 10) rateCK = 0.05;
+            else if(quantity >=8) rateCK = 0.02;
+            else if(quantity >= 5) rateCK = 0.01;
+            return (int) (price*quantity*rateCK);
+        }
+        
+        public int getCost(){
+            return price*quantity - getChietKhau();
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+getChietKhau()+" "+getCost();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            in.nextLine();
+            System.out.println(new HangHoa(in.nextLine(), in.nextInt(), in.nextInt()));
+        }
+    }
+}
+
+/*
+4
+Tran Thi Yen
+NV
+1000
+24
+Nguyen Van Thanh
+BV
+1000
+30
+Doan Truong An
+TP
+3000
+25
+Le Thanh
+GD
+5000
+28
+TP
+*/
