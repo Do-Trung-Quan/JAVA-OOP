@@ -1,0 +1,60 @@
+import java.util.*;
+
+public class Solution{
+    static Map<String, Integer> mp = new HashMap<>();
+    static class HangHoa{
+        String id;
+        int in;
+        public HangHoa(String id, int in){
+            this.id = id;
+            this.in = in;
+        }
+        
+        public int getOut(){
+            if(id.startsWith("A")) return (int)Math.round(in*0.6);
+            return (int)Math.round(in*0.7);
+        }
+        
+        public int getDonGia(){
+            if(id.endsWith("Y")) return 110000;
+            return 135000;
+        }
+        
+        public int getCost(){
+            return getDonGia()*getOut();
+        }
+        
+        public int getTax(){
+            if(id.startsWith("A")){
+                if(id.endsWith("Y")) return (int)(getCost()*0.08);
+                return (int)(getCost()*0.11);
+            }else{
+                if(id.endsWith("Y")) return (int)(getCost()*0.17);
+                return (int)(getCost()*0.22);
+            }
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+in+" "+getOut()+" "+getDonGia()+" "+getCost()+" "+getTax();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            System.out.println(new HangHoa(in.next(), in.nextInt()));
+        }
+    }
+}
+
+/*
+3
+A001Y
+1000
+B012N
+2500
+B003Y
+4582
+*/
