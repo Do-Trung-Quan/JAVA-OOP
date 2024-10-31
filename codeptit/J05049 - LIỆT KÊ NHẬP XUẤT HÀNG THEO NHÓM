@@ -1,0 +1,70 @@
+import java.util.*;
+
+public class Solution{
+    static class HangHoa implements Comparable<HangHoa>{
+        String id;
+        int in;
+        public HangHoa(String id, int in){
+            this.id = id;
+            this.in = in;
+        }
+        
+        public int getOut(){
+            if(id.startsWith("A")) return (int)Math.round(in*0.6);
+            return (int)Math.round(in*0.7);
+        }
+        
+        public int getDonGia(){
+            if(id.endsWith("Y")) return 110000;
+            return 135000;
+        }
+        
+        public int getCost(){
+            return getDonGia()*getOut();
+        }
+        
+        public int getTax(){
+            if(id.startsWith("A")){
+                if(id.endsWith("Y")) return (int)(getCost()*0.08);
+                return (int)(getCost()*0.11);
+            }else{
+                if(id.endsWith("Y")) return (int)(getCost()*0.17);
+                return (int)(getCost()*0.22);
+            }
+        }
+        
+        @Override
+        public int compareTo(HangHoa b){
+            return b.getTax() - this.getTax();
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+in+" "+getOut()+" "+getDonGia()+" "+getCost()+" "+getTax();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<HangHoa> a = new ArrayList<>();
+        while(t-- > 0){
+            a.add(new HangHoa(in.next(), in.nextInt()));
+        }
+        String n = in.next();
+        Collections.sort(a);
+        for(HangHoa x:a){
+            if(x.id.startsWith(n)) System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+A001Y
+1000
+B012N
+2500
+B003Y
+4582
+*/
