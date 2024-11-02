@@ -1,0 +1,72 @@
+import java.util.*;
+
+public class Solution{
+    static class TienDien implements Comparable<TienDien>{
+        String id,type;
+        int old, New;
+        static int cnt = 1;
+        public TienDien(String type, int old, int New){
+            this.id = String.format("KH%02d", cnt++);
+            this.type = type;
+            this.old = old;
+            this.New = New;
+        }
+        
+        public int getHeSo(){
+            if(type.equals("KD")) return 3;
+            if(type.equals("NN")) return 5;
+            if(type.equals("TT")) return 4;
+            return 2;
+        }
+        
+        public int getCost(){
+            return (New - old)*getHeSo()*550;
+        }
+        
+        public int getPhuTroi(){
+            if(New-old < 50) return 0;
+            if(New-old <= 100) return (int) Math.ceil(getCost()*0.35);
+            return getCost();
+        }
+        
+        public int getTotal(){
+            return getPhuTroi()+getCost();
+        }
+        
+        @Override
+        public int compareTo(TienDien b){
+            return b.getTotal() - this.getTotal();
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+getHeSo()+" "+getCost()+" "+getPhuTroi()+" "+getTotal();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<TienDien> a = new ArrayList<>();
+        while(t-- > 0){
+            a.add(new TienDien(in.next(), in.nextInt(), in.nextInt()));
+        }
+        Collections.sort(a);
+        for(TienDien x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+KD
+400
+555
+NN
+58
+400
+CN
+150
+700
+*/
