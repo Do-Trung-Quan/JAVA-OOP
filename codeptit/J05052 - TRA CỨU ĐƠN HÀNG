@@ -1,0 +1,55 @@
+import java.util.*;
+
+public class Solution{
+    static class HangHoa{
+        String id,name;
+        int price, quantity;
+        public HangHoa(String name, String id, int price, int quantity){
+            this.id = id;
+            this.name = name;
+            this.price = price;
+            this.quantity = quantity;
+        }
+        
+        public int getDis(){
+            char tmp = id.charAt(id.length()-1);
+            if(tmp == '1') return (int)Math.ceil(price*quantity*0.5);
+            return (int)Math.ceil(price*quantity*0.3);
+        }
+        
+        public int getCost(){
+            return price*quantity - getDis();
+        }
+        
+        @Override
+        public String toString(){
+            return name+" "+id+" "+id.substring(1,id.length()-1)+" "+getDis()+" "+getCost();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<HangHoa> a = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new HangHoa(in.nextLine(), in.next(), in.nextInt(), in.nextInt()));
+        }
+        for(HangHoa x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+KD
+400
+555
+NN
+58
+400
+CN
+150
+700
+*/
