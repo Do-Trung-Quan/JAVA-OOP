@@ -1,0 +1,65 @@
+import java.util.*;
+
+public class Solution{
+    static Map<String, Integer> mp = new HashMap<>();
+    static class HangHoa implements Comparable<HangHoa>{
+        String id,name;
+        int price, quantity;
+        public HangHoa(String name, String id, int price, int quantity){
+            this.id = id;
+            this.name = name;
+            this.price = price;
+            this.quantity = quantity;
+        }
+        
+        public int getDis(){
+            char tmp = id.charAt(id.length()-1);
+            if(tmp == '1') return (int)(price*quantity*0.5);
+            return (int)(price*quantity*0.3);
+        }
+        
+        public int getCost(){
+            return price*quantity - getDis();
+        }
+        
+        @Override
+        public int compareTo(HangHoa b){
+            return this.id.substring(1,this.id.length()-1).compareTo(b.id.substring(1,b.id.length()-1));
+        }
+        
+        @Override
+        public String toString(){
+            return name+" "+id+" "+id.substring(1,id.length()-1)+" "+getDis()+" "+getCost();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<HangHoa> a = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new HangHoa(in.nextLine(), in.next(), in.nextInt(), in.nextInt()));
+        }
+        Collections.sort(a);
+        for(HangHoa x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+Kaki 2
+K0252
+80000
+15
+Jean 1
+J2011
+200000
+24
+Jean 2
+J0982
+150000
+12
+*/
