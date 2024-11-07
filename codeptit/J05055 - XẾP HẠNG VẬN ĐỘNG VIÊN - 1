@@ -1,0 +1,120 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static Map<String, Integer> mp = new HashMap<>();
+    static class ThiSinh implements Comparable<ThiSinh>{
+        String id,name, dob, st, en;
+        int rank;
+        static int cnt = 1;
+        public ThiSinh(String name, String dob, String st, String en){
+            this.id = String.format("VDV%02d", cnt++);
+            this.name = name;
+            this.dob = dob;
+            this.st = st;
+            this.en = en;
+        }
+        
+        public int getAge(){
+            return 2021 - Integer.parseInt(dob.substring(dob.length()-4));
+        }
+        
+        public String getAdv(){
+            int a = getAge();
+            if(a<18) return "00:00:00";
+            if(a<25) return "00:00:01";
+            if(a<32) return "00:00:02";
+            return "00:00:03";
+        }
+        
+        public void setRank(int n){
+            this.rank = n;
+        }
+        
+        public String getResult(){
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            try {
+                Date d = sdf.parse(st);
+                Date d2 = sdf.parse(en);
+                long gap = d2.getTime()-d.getTime();
+                long sec = (gap/1000) % 60;
+                long min = (gap/(60*1000)) % 60;
+                long hour = gap/(1000*3600);
+                return String.format("%02d:%02d:%02d", hour, min, sec);
+                
+            } catch (ParseException e) {
+                return "##/##/##";
+            }
+        }
+        
+        public String getFinal(){
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            try {
+                Date d = sdf.parse(getResult());
+                Date d2 = sdf.parse(getAdv());
+                long res = d.getTime()-d2.getTime();
+                long sec = (res/1000) % 60;
+                long min = (res/(60*1000)) % 60;
+                long hour = res/(1000*3600);
+                return String.format("%02d:%02d:%02d", hour, min, sec);
+                
+            } catch (ParseException e) {
+                return "##/##/##";
+            }
+        }
+        
+        @Override
+        public int compareTo(ThiSinh b){
+            return - b.getFinal().compareTo(this.getFinal());
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+getResult()+" "+getAdv()+" "+getFinal()+" "+rank;
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        in.nextLine();
+        List<ThiSinh> a = new ArrayList<>();
+        List<ThiSinh> b = new ArrayList<>();
+        while(t-- > 0){
+//            in.nextLine();
+            a.add(new ThiSinh(in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+        for(ThiSinh x:a){
+            b.add(x);
+        }
+        Collections.sort(a);
+        int num = 1;
+        a.get(0).setRank(num);
+        for(int i=1;i<a.size();i++){
+            num++;
+            if(a.get(i).getFinal().equals(a.get(i-1).getFinal())) a.get(i).setRank(a.get(i-1).rank);
+            else a.get(i).setRank(num);
+        }
+        
+        for(ThiSinh x:b){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+Nguyen Van Thanh
+20/03/1990
+07:00:00
+07:10:01
+Nguyen Hoa Binh
+01/10/1993
+07:02:00
+07:11:20
+Le Thanh Van
+15/03/1998
+07:05:00
+07:15:30
+*/
