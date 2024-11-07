@@ -1,0 +1,73 @@
+import java.util.*;
+
+public class Solution{
+    static Map<String, Integer> mp = new HashMap<>();
+    static class HocSinh implements Comparable<HocSinh>{
+        String id,name, rank;
+        double gpa;
+        static int cnt = 1;
+        public HocSinh(String name, double gpa){
+            this.id = String.format("HS%02d", cnt++);
+            this.name = name;
+            this.gpa = gpa;
+        }
+        
+        public String getLevel(){
+            if(gpa < 5) return "Yeu";
+            if(gpa < 7) return "Trung Binh";
+            if(gpa < 9) return "Kha";
+            return "Gioi";
+        }
+        
+        public void setRank(String n){
+            this.rank = n;
+        }
+        
+        @Override
+        public int compareTo(HocSinh b){
+            return Double.compare(b.gpa, this.gpa);
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+gpa+" "+getLevel()+" "+rank;
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<HocSinh> a = new ArrayList<>();
+        List<HocSinh> b = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new HocSinh(in.nextLine(), in.nextDouble()));
+        }
+        for(HocSinh x:a){
+            b.add(x);
+        }
+        
+        Collections.sort(a);
+        int num = 1;
+        a.get(0).setRank(Integer.toString(num));
+        for(int i=1;i<a.size();i++){
+            num++;
+            if(a.get(i).gpa == a.get(i-1).gpa) a.get(i).setRank(a.get(i-1).rank);
+            else a.get(i).setRank(Integer.toString(num));
+        }
+        
+        for(HocSinh x:b){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+Tran Minh Hieu
+5.9
+Nguyen Bao Trung
+9.2
+Le Hong Ha
+9.2
+*/
