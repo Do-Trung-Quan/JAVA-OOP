@@ -1,0 +1,104 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class ThiSinh implements Comparable<ThiSinh>{
+        String id, name, st, en;
+        static int cnt = 1;
+        int age, rank;
+        public ThiSinh(String name, String dob, String st, String en){
+            this.id = String.format("VDV%02d", cnt++);
+            this.name = name;
+            this.st = st;
+            this.en = en;
+            this.age = 2021 - Integer.parseInt(dob.substring(dob.length()-4));
+        }
+        
+        public String getAdv(){
+            if(age < 18) return "00:00:00";
+            if(age < 25) return "00:00:01";
+            if(age < 32) return "00:00:02";
+            return "00:00:03";
+        }
+        
+        public String getGap(){
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            try {
+                Date stDate = sdf.parse(st);
+                Date enDate = sdf.parse(en);
+                long h = (enDate.getTime() - stDate.getTime())/(1000*3600);
+                long m = (enDate.getTime() - stDate.getTime())/(1000*60) % 60;
+                long s = (enDate.getTime() - stDate.getTime())/1000 % 60;
+                return String.format("%02d:%02d:%02d", h,m,s);
+            } catch (ParseException e) {
+                return "#";
+            }
+        }
+        
+         public String getResult(){
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            try {
+                Date gapDate = sdf.parse(getGap());
+                Date advDate = sdf.parse(getAdv());
+                long h = (gapDate.getTime() - advDate.getTime())/(1000*3600);
+                long m = (gapDate.getTime() - advDate.getTime())/(1000*60) % 60;
+                long s = (gapDate.getTime() - advDate.getTime())/1000 % 60;
+                return String.format("%02d:%02d:%02d", h,m,s);
+            } catch (ParseException e) {
+                return "#";
+            }
+        }
+         
+        public void setRank(int n){
+            this.rank = n;
+        } 
+        
+        @Override
+        public int compareTo(ThiSinh b){
+            return this.getResult().compareTo(b.getResult());
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+getGap()+" "+getAdv()+" "+getResult()+" "+rank;
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        in.nextLine();
+        List<ThiSinh> a = new ArrayList<>();
+        while(t-- > 0){
+            a.add(new ThiSinh(in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+        Collections.sort(a);
+        int num = 1;
+        a.get(0).setRank(num);
+        for(int i=1;i<a.size();i++){
+            num++;
+            if(a.get(i).getResult().equals(a.get(i-1).getResult())) a.get(i).setRank(a.get(i-1).rank);
+            else a.get(i).setRank(num);
+        }
+        for(ThiSinh x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+Nguyen Van Thanh
+20/03/1990
+07:00:00
+07:10:01
+Nguyen Hoa Binh
+01/10/1993
+07:02:00
+07:11:20
+Le Thanh Van
+15/03/1998
+07:05:00
+07:15:30
+*/
