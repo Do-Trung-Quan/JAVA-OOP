@@ -1,0 +1,80 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class ThiSinh implements Comparable<ThiSinh>{
+        String id, name;
+        int age;
+        static int cnt = 1;
+        double g1, g2;
+        public ThiSinh(String name, String dob, double g1, double g2){
+            this.id = String.format("PH%02d", cnt++);
+            this.name = name;
+            this.age = 2021 - Integer.parseInt(dob.substring(dob.length()-4));
+            this.g1 = g1;
+            this.g2 = g2;
+        }
+        
+        public Double getAdv(){
+            if(g1 >= 8 && g2 >= 8) return 1.0;
+            if(g1 >= 7.5 && g2 >= 7.5) return 0.5;
+            return 0d;
+        }
+        
+        public int getTotal(){
+            int res = (int) Math.round((g1+g2)/2 + getAdv());
+            if(res > 10) return 10;
+            return res;
+        }
+        
+        public String getRank(){
+            if(getTotal() < 5) return "Truot";
+            if(getTotal() <= 6) return "Trung binh";
+            if(getTotal() == 7) return "Kha";
+            if(getTotal() == 8) return "Gioi";
+            return "Xuat sac";
+        }
+         
+        @Override
+        public int compareTo(ThiSinh b){
+            if(this.getTotal() == b.getTotal()) return this.id.compareTo(b.id);
+            return Double.compare(b.getTotal(), this.getTotal());
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+age+" "+getTotal()+" "+getRank();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<ThiSinh> a = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new ThiSinh(in.nextLine(), in.nextLine(), in.nextDouble(), in.nextDouble()));
+        }
+        Collections.sort(a);
+        for(ThiSinh x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+Doan Thi Kim
+13/03/1982
+8
+9.5
+Dinh Thi Ngoc Ha
+03/09/1996
+6.5
+8
+Tran Thanh Mai
+12/09/2004
+8
+9
+*/
