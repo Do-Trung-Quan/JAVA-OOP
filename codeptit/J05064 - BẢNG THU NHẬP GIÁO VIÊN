@@ -1,0 +1,74 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class NhanVien implements Comparable<NhanVien>{
+        String id, name;
+        int base;
+        public NhanVien(String id, String name, int base){
+            this.id = id;
+            this.name = name;
+            this.base = base;
+        }
+        
+        public int getPC(){
+            String tmp = id.substring(0,2);
+            if(tmp.equals("HT")) return 2000000;
+            if(tmp.equals("HP")) return 900000;
+            return 500000;
+        }
+        
+        public int getTotal(){
+            int res = Integer.parseInt(id.substring(2));
+            return base*res+getPC();
+        }
+         
+        @Override
+        public int compareTo(NhanVien b){
+            return 0;
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+Integer.parseInt(id.substring(2))+" "+getPC()+" "+getTotal();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<NhanVien> a = new ArrayList<>();
+        int numHT = 1;
+        int numHP = 2;
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new NhanVien(in.nextLine(), in.nextLine(), in.nextInt()));
+        }
+//        Collections.sort(a);
+        for(NhanVien x:a){
+            if(x.id.startsWith("HT")){
+                if(numHT == 0) continue;
+                numHT--;
+            }
+            else if(x.id.startsWith("HP")){
+                if(numHP == 0) continue;
+                numHP--;
+            }
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+HT05
+Nguyen Kim Loan
+1420000
+HT05
+Hoang Thanh Tuan
+1780000
+GV02
+Tran Binh Nguyen
+1468000
+*/
