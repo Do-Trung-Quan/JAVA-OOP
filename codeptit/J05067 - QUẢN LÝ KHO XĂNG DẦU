@@ -1,0 +1,73 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class HangHoa implements Comparable<HangHoa>{
+        String id;
+        long sl, base, tax;
+        public HangHoa(String id, long sl){
+            this.id = id;
+            this.sl = sl;
+            getTaxBase();
+        }
+        
+        public String getBrand(){
+            String tmp = id.substring(id.length()-2);
+            if(tmp.equals("BP")) return "British Petro";
+            if(tmp.equals("ES")) return "Esso";
+            if(tmp.equals("SH")) return "Shell";
+            if(tmp.equals("CA")) return "Castrol";
+            if(tmp.equals("MO")) return "Mobil";
+            return "Trong Nuoc";
+        }
+        
+        public void getTaxBase(){
+            if(id.startsWith("X")){
+                this.base = 128000;
+                this.tax = (long)(base*sl*0.03);
+            }else if(id.startsWith("D")){
+                this.base = 11200;
+                this.tax = (long)(base*sl*0.035);
+            }else{
+                this.base = 9700;
+                this.tax = (long)(base*sl*0.02);
+            }
+            if(getBrand().equals("Trong Nuoc")) this.tax = 0;
+        }
+        
+        public long getTotal(){
+            return base*sl+tax;
+        }
+         
+        @Override
+        public int compareTo(HangHoa b){
+            return 0;
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+getBrand()+" "+base+" "+tax+" "+getTotal();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<HangHoa> a = new ArrayList<>();
+        while(t-- > 0){
+            a.add(new HangHoa(in.next(), in.nextLong()));
+        }
+//        Collections.sort(a);
+        for(HangHoa x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+N89BP 4500
+D00BP 3500
+X92SH 2600
+*/
