@@ -1,0 +1,70 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class SinhVien{
+        String id, name, lop, diemdanh;
+        public SinhVien(String id, String name, String lop){
+            this.id = id;
+            this.name = name;
+            this.lop = lop;
+        }
+        
+        public void setDiemDanh(String n){
+            this.diemdanh = n;
+        }
+        
+        public String getCC(){
+            int num = 10;
+            for(char x:diemdanh.toCharArray()){
+                if(x=='v') num-=2;
+                else if(x=='m') num--;
+            }
+            if(num<=0) return "0 KDDK";
+            return Integer.toString(num);
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+lop+" "+getCC();
+        }
+        
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        int T = t;
+        in.nextLine();
+        List<SinhVien> a = new ArrayList<>();
+        while(t-- > 0){
+            a.add(new SinhVien(in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+        while(T-- > 0){
+            String tmp = in.nextLine();
+            for(SinhVien x:a){
+                if(x.id.equals(tmp.split("\\s+")[0])) x.setDiemDanh(tmp.split("\\s+")[1]);
+            }
+        }
+        for(SinhVien x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+B19DCCN999
+Le Cong Minh
+D19CQAT02-B
+B19DCCN998
+Tran Truong Giang
+D19CQAT02-B
+B19DCCN997
+Nguyen Tuan Anh
+D19CQCN04-B
+B19DCCN998 xxxmxmmvmx
+B19DCCN997 xmxmxxxvxx
+B19DCCN999 xvxmxmmvvm
+*/
