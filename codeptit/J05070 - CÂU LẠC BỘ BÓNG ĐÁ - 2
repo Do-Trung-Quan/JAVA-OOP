@@ -1,0 +1,79 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class Team{
+        String id, name;
+        int price;
+        public Team(String id, String name, int price){
+            this.id = id;
+            this.name = name;
+            this.price = price;
+        }
+    }
+    
+    static class Match implements Comparable<Match>{
+        String id;
+        int att;
+        Team T;
+        public Match(String id, int att){
+            this.id = id;
+            this.att = att;
+        }
+        
+        public void setTeam(Team T){
+            this.T = T;
+        }
+        
+        @Override
+        public int compareTo(Match b){
+            if(this.att*this.T.price == b.att*b.T.price) return this.T.name.compareTo(b.T.name);
+            return - ((this.att*this.T.price) - (b.att*b.T.price));
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+T.name+" "+(T.price*att);
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<Team> a = new ArrayList<>();
+        List<Match> b = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new Team(in.nextLine(), in.nextLine(), in.nextInt()));
+        }
+        int t2 = in.nextInt();
+        while(t2-- > 0){
+            Match m = new Match(in.next(), in.nextInt());
+            for(Team x:a){
+                if(m.id.substring(1,3).equals(x.id)){
+                    m.setTeam(x);
+                    break;
+                }
+            }
+            b.add(m);
+        }
+        Collections.sort(b);
+        for(Match x:b){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+2
+AC
+AC Milan
+12
+MU
+Manchester United
+10
+2
+IAC1 80000
+EMU2 60000
+*/
