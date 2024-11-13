@@ -1,0 +1,76 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class HangHoa{
+        String id, name, type;
+        public HangHoa(String id, String name, String type){
+            this.id = id;
+            this.name = name;
+            this.type = type;
+        }
+    }
+    
+    static class ThongKe{
+        HangHoa hangHoa;
+        int in, price, out;
+        public ThongKe(HangHoa hangHoa, int in, int price, int out){
+            this.hangHoa = hangHoa;
+            this.in = in;
+            this.price = price;
+            this.out = out;
+        }
+        
+        public int getOut(){
+            double tmp;
+            if(hangHoa.type.equals("A")) tmp = 0.08;
+            else if(hangHoa.type.equals("B")) tmp = 0.05;
+            else tmp = 0.02;
+            return (int) (price*out*(tmp+1));
+        }
+        
+        @Override
+        public String toString(){
+            return hangHoa.id+" "+hangHoa.name+" "+price*in+" "+getOut();
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        in.nextLine();
+        List<HangHoa> a = new ArrayList<>();
+        while(t-- > 0){
+            a.add(new HangHoa(in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+        t = in.nextInt();
+        in.nextLine();
+        while(t-- > 0){
+            String tmp = in.nextLine();
+            String[] arr = tmp.split("\\s+");
+            ThongKe res;
+            for(HangHoa x:a){
+                if(x.id.equals(arr[0])){
+                    res = new ThongKe(x, Integer.parseInt(arr[1]), Integer.parseInt(arr[2]), Integer.parseInt(arr[3]));
+                    System.out.println(res);
+                    break;
+                }
+            }
+        }
+    }
+}
+
+/*
+2
+A001
+Tu lanh
+A
+P002
+May giat
+B
+2
+A001 500 100 300
+P002 1000 1000 500
+A001 500 200 300
+*/
