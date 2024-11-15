@@ -1,0 +1,75 @@
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class KhachHang implements Comparable<KhachHang>{
+        String id, name, sex, dob, addr;
+        static int cnt = 1;
+        public KhachHang(String name, String sex, String dob, String addr){
+            this.id = String.format("KH%03d", cnt++);
+            this.name = chuanhoaN(name);
+            this.sex = sex;
+            this.dob = chuanhoaD(dob);
+            this.addr = addr;
+        }
+        
+        public String chuanhoaN(String n){
+            String res = "";
+            for(String x:n.toLowerCase().trim().split("\\s+")){
+                res+=x.substring(0,1).toUpperCase()+x.substring(1)+" ";
+            }
+            res = res.trim();
+            return res;
+        }
+        
+        public String chuanhoaD(String n){
+            String[] a = n.trim().split("/");
+            if(a[0].length()==1) n = "0"+n;
+            if(a[1].length()==1) n = n.substring(0,3)+"0"+n.substring(3);
+            return n;
+        }
+        
+        @Override
+        public int compareTo(KhachHang b){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date d1 = sdf.parse(this.dob);
+                Date d2 = sdf.parse(b.dob);
+                return Long.compare(d1.getTime(), d2.getTime());
+            } catch (Exception e) {
+                return 0;
+            }
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+sex+" "+addr+" "+dob;
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        in.nextLine();
+        List<KhachHang> a = new ArrayList<>();
+        while(t-- > 0){
+            a.add(new KhachHang(in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+        Collections.sort(a);
+        for(KhachHang x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+2
+ nGuyen VAN     nAm
+Nam
+2/2/1997
+Mo Lao-Ha Dong-Ha Noi
+ TRan    vAn     biNh
+Nam
+14/1/1995
+Phung Khoang-Nam Tu Liem-Ha Noi
+*/
