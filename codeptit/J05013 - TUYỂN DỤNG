@@ -1,0 +1,72 @@
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public class Solution{
+    static class ThiSinh implements Comparable<ThiSinh>{
+        String id, name;
+        double g1, g2;
+        static int cnt = 1;
+        public ThiSinh(String name, double g1, double g2){
+            this.id = String.format("TS%02d", cnt++);
+            this.name = name;
+            this.g1 = conv(g1);
+            this.g2 = conv(g2);
+        }
+        
+        public double conv(double n){
+            if(n>10) n/=10;
+            return n;
+        }
+        
+        public double getTotal(){
+            return (g1+g2)/2;
+        }
+        
+        public String getRank(){
+            if(getTotal() < 5) return "TRUOT";
+            if(getTotal() < 8) return "CAN NHAC";
+            if(getTotal() <= 9.5) return "DAT";
+            return "XUAT SAC";
+        }
+        
+        @Override
+        public int compareTo(ThiSinh b){
+            return Double.compare(b.getTotal(), this.getTotal());
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+String.format("%.2f", getTotal())+" "+getRank();
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<ThiSinh> a = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new ThiSinh(in.nextLine(), in.nextDouble(), in.nextDouble()));
+        }
+        Collections.sort(a);
+        for(ThiSinh x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+Nguyen Thai Binh
+45
+75
+Le Cong Hoa
+4
+4.5
+Phan Van Duc
+56
+56
+
+*/
