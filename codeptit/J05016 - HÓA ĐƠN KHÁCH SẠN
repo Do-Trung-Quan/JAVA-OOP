@@ -1,0 +1,87 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class KhachHang implements Comparable<KhachHang>{
+        String id, name, room, st, en;
+        int ext;
+        static int cnt = 1;
+        public KhachHang(String name, String room, String st, String en, int ext){
+            this.id = String.format("KH%02d", cnt++);
+            this.name = name.trim();
+            this.room = room.trim();
+            this.st = st.trim();
+            this.en = en.trim();
+            this.ext = ext;
+        }
+        
+        public int getHeso(){
+            if(room.charAt(0)=='1') return 25;
+            if(room.charAt(0)=='2') return 34;
+            if(room.charAt(0)=='3') return 50;
+            return 80;
+        }
+        
+        public long getTime(){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date St = sdf.parse(st);
+                Date En = sdf.parse(en);
+                long gap = (En.getTime()-St.getTime())/(1000*60*60*24);
+                return gap+1;
+            } catch (ParseException e) {
+                return 0;
+            }
+        }
+        
+        public long getTotal(){
+            return getHeso()*getTime()+ext;
+        }
+        
+        @Override
+        public int compareTo(KhachHang b){
+            return Long.compare(b.getTotal(), this.getTotal());
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+room+" "+getTime()+" "+getTotal();
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<KhachHang> a = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new KhachHang(in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine(), in.nextInt()));
+        }
+        Collections.sort(a);
+        for(KhachHang x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+Huynh Van Thanh   
+103 
+05/06/2010   
+05/06/2010   
+15
+Le Duc Cong  
+106 
+08/03/2010   
+01/05/2010   
+220
+Tran Thi Bich Tuyen   
+207 
+10/04/2010   
+21/04/2010   
+96
+*/
