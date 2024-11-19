@@ -1,0 +1,68 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class LuongMua{
+        String name, st, en;
+        int num;
+        public LuongMua(String name, String st, String en, int num){
+            this.name = name;
+            this.st = st;
+            this.en = en;
+            this.num = num;
+        }
+        
+        public long getGap(){
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+            try {
+                Date S = sdf.parse(st);
+                Date E = sdf.parse(en);
+                return (E.getTime() - S.getTime()) / (1000*60);
+            } catch (ParseException e) {
+                return 0;
+            }
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<LuongMua> a = new ArrayList<>();
+        Map<String, Double> mp = new LinkedHashMap<>();
+        while(t-- > 0){
+            in.nextLine();
+            LuongMua tmp = new LuongMua(in.nextLine(), in.nextLine(), in.nextLine(), in.nextInt());
+            a.add(tmp);
+            mp.put(tmp.name, 0.0);
+        }
+        for(String j:mp.keySet()){
+            int time = 0, num = 0;
+            for(LuongMua x:a){
+                if(x.name.equals(j)){
+                    time+=x.getGap();
+                    num+=x.num;
+                }
+            }
+            mp.put(j, (double)num/time * 60);
+        }
+        
+        int n = 1;
+        for(String x:mp.keySet()){
+            System.out.println(String.format("T%02d", n++)+" "+x+" "+String.format("%.2f", mp.get(x)));
+        }
+    }
+}
+
+/*
+3
+Le Thi Thanh
+468
+500
+Le Duc Cong
+160
+230
+Ha Hue Anh
+410
+612
+*/
