@@ -1,0 +1,74 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class SinhVien implements Comparable<SinhVien>{
+        String name;
+        double g1, consTB;
+        int g2;
+        
+        public SinhVien(String name, double g1, int g2){
+            this.name = name;
+            this.g1 = g1;
+            this.g2 = g2;
+            this.consTB = 0.0;
+//            this.consRL = 0;
+        }
+        
+        public void setCons(double n){
+            this.consTB = n;
+        }        
+        
+        public String getRank(){
+            if(g1>=3.6 && g2 >= 90 && g1 >= consTB) return "XUATSAC"; 
+            if(g1>=3.2 && g2 >= 80 && g1 >= consTB) return "GIOI"; 
+            if(g1>=2.5 && g2 >= 70 && g1 >= consTB) return "KHA";
+            return "KHONG";
+        }
+        
+        @Override
+        public int compareTo(SinhVien b){
+            if(this.g1 == b.g1) return b.g2 - this.g2;
+            return Double.compare(b.g1, this.g1);
+        }
+        
+        @Override
+        public String toString(){
+            return name+": "+getRank();
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        int m = in.nextInt();
+        List<SinhVien> a = new ArrayList<>();
+        List<SinhVien> b = new ArrayList<>(); 
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new SinhVien(in.nextLine(), in.nextDouble(), in.nextInt()));
+        }
+        for(SinhVien x:a){
+            b.add(x);
+        }
+        
+        Collections.sort(b);
+        double juanTB = b.get(m-1).g1;
+        for(SinhVien x:a){
+            x.setCons(juanTB);
+            System.out.println(x);
+        }
+        
+    }
+}
+
+/*
+3 2
+Nguyen Van Nam
+3.59 75
+Tran Hong Ngoc
+3.61 90
+Do Van An
+3.22 90
+*/
