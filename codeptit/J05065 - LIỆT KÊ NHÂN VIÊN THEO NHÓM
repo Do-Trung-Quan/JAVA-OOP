@@ -1,0 +1,77 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class NhanVien implements Comparable<NhanVien>{
+        String id, name, cv, hs, sh;
+        
+        public NhanVien(String id, String name){
+            this.id = id;
+            this.name = name;
+            this.cv = id.trim().substring(0,2);
+            this.hs = id.trim().substring(2,4);
+            this.sh = id.trim().substring(4);
+        }
+        
+        @Override
+        public int compareTo(NhanVien b){
+            if(this.hs.equals(b.hs)) return this.sh.compareTo(b.sh);
+            return b.hs.compareTo(this.hs);
+        }
+        
+        @Override
+        public String toString(){
+            return name+" "+cv+" "+sh+" "+hs;
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        in.nextLine();
+        List<NhanVien> a = new ArrayList<>();
+        int cntGD = 0, cntPP = 0, cntTP = 0;
+        while(t-- > 0){
+            String line = in.nextLine();
+            if(line.startsWith("GD")){
+                if(cntGD < 1) cntGD++;
+                else line = "NV"+line.substring(2);
+            }
+            else if(line.startsWith("TP")){
+                if(cntTP < 3) cntTP++;
+                else line = "NV"+line.substring(2);
+            }
+            else if(line.startsWith("PP")){
+                if(cntPP < 3) cntPP++;
+                else line = "NV"+line.substring(2);
+            }
+            String[] tmp = line.split("\\s+",2);
+            a.add(new NhanVien(tmp[0], tmp[1]));
+        }
+        Collections.sort(a);
+        
+        t = in.nextInt();
+        while(t-- > 0){
+            String tmp = in.next();
+            for(NhanVien x:a){
+                if(x.cv.equals(tmp)) System.out.println(x);
+            }
+            System.out.println();
+        }
+        
+    }
+}
+
+/*
+6
+GD08001 Nguyen Kim Loan
+TP05002 Hoang Thanh Tuan
+TP05001 Tran Binh Nguyen
+TP06002 Phan Trung Tuan
+TP06001 Tran Quoc Huy
+GD04003 Vo Van Lan
+2
+TP
+GD
+*/
