@@ -1,0 +1,76 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class NhanVien implements Comparable<NhanVien>{
+        String id, name, cv, hs, sh;
+        
+        public NhanVien(String id, String name){
+            this.id = id;
+            this.name = name.trim();
+            this.cv = id.trim().substring(0,2);
+            this.hs = id.trim().substring(2,4);
+            this.sh = id.trim().substring(4);
+            checkChucvu();
+        }
+        
+        public void checkChucvu() {
+        if ((cv.equals("GD") && Integer.parseInt(sh) > 1) ||
+            (cv.equals("TP") && Integer.parseInt(sh) > 3) ||
+            (cv.equals("PP") && Integer.parseInt(sh) > 3)) {
+            cv = "NV";
+            }
+        }  
+
+        
+        @Override
+        public int compareTo(NhanVien b){
+            if(this.hs.equals(b.hs)) return this.sh.compareTo(b.sh);
+            return b.hs.compareTo(this.hs);
+        }
+        
+        @Override
+        public String toString(){
+            return name+" "+cv+" "+sh+" "+hs;
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        in.nextLine();
+        List<NhanVien> a = new ArrayList<>();
+        int cntGD = 0, cntPP = 0, cntTP = 0;
+        while(t-- > 0){
+            String line = in.nextLine().trim();
+            String[] tmp = line.split("\\s+",2);
+            a.add(new NhanVien(tmp[0], tmp[1]));
+        }
+        Collections.sort(a);
+        
+        t = in.nextInt();
+        in.nextLine();
+        while(t-- > 0){
+            String tmp = in.nextLine().toLowerCase();
+            for(NhanVien x:a){
+                if(x.name.toLowerCase().contains(tmp)) System.out.println(x);
+            }
+            System.out.println();
+        }
+        
+    }
+}
+
+/*
+6
+GD08001 Nguyen Kim Loan
+TP05002 Hoang Thanh Tuan
+TP05001 Tran Binh Nguyen
+PP06002 Phan Trung Tuan
+PP06001 Tran Quoc Huy
+NV04003 Vo Van Lan
+2
+n t
+aN
+*/
