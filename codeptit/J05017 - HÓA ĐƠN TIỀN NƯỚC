@@ -1,0 +1,62 @@
+import java.util.*;
+
+public class Solution{
+    static class KhachHang implements Comparable<KhachHang>{
+        String id, name;
+        int old, New;
+        static int cnt = 1;
+        public KhachHang(String name, int old, int New){
+            this.id = String.format("KH%02d", cnt++);
+            this.name = name.trim();
+            this.old = old;
+            this.New = New;
+        }
+        
+        public int getTotal(){
+            int tmp = New-old;
+            int res = 0;
+            if(tmp <= 50) return (int) Math.round((tmp*100)*1.02);
+            if(tmp <= 100){
+                return (int) Math.round(((50*100 + (tmp-50)*150))*1.03);
+            }
+            return (int) Math.round((50*100 + 50*150 + (tmp-100)*200)*1.05);
+        }
+        
+        @Override
+        public int compareTo(KhachHang b){
+            return b.getTotal() - this.getTotal();
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+getTotal();
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        List<KhachHang> a = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new KhachHang(in.nextLine(), in.nextInt(), in.nextInt()));
+        }
+        Collections.sort(a);
+        for(KhachHang x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+3
+Le Thi Thanh
+468
+500
+Le Duc Cong
+160
+230
+Ha Hue Anh
+410
+612
+*/
