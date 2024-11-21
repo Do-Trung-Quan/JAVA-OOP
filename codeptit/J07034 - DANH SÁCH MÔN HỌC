@@ -1,0 +1,66 @@
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+
+public class Solution{
+    
+    static class MonHoc implements Comparable<MonHoc>{
+        String id,name;
+        int sl;
+        public MonHoc(String id, String name, int sl){
+            this.id = id;
+            this.name = name;
+            this.sl = sl;
+        }
+        
+        @Override
+        public int compareTo(MonHoc b){
+            return this.name.compareTo(b.name);
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+sl;
+        }
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException{
+        Scanner in = new Scanner(new File("MONHOC.in"));
+        int t = in.nextInt();
+        List<MonHoc> a =new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new MonHoc(in.nextLine(), in.nextLine(), in.nextInt()));
+        }
+        Collections.sort(a);
+        for(MonHoc x:a){
+            System.out.println(x);
+        }
+    }
+}
+
+/*
+2
+Nguyen Van Nam
+Nam
+12/12/1997
+Mo Lao-Ha Dong-Ha Noi
+Tran Van Binh
+Nam
+14/11/1995
+Phung Khoang-Nam Tu Liem-Ha Noi
+2
+Ao phong tre em
+Cai
+25000
+41000
+Ao khoac nam
+Cai
+240000
+515000
+3
+KH001 MH001 2
+KH001 MH002 3
+KH002 MH002 4
+*/
