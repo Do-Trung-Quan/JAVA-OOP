@@ -1,0 +1,31 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.*;
+
+public class Solution{
+    static boolean check(int n){
+        if(n<2) return false;
+        for(int i=2;i<=Math.sqrt(n);i++){
+            if(n%i==0) return false;
+        }
+        return true;
+    }
+    public static void main(String[] args) {
+        try {
+            ObjectInputStream f1 = new ObjectInputStream(new FileInputStream("DATA1.in"));
+            ObjectInputStream f2 = new ObjectInputStream(new FileInputStream("DATA2.in"));
+            ArrayList<Integer> a1 = (ArrayList<Integer>) f1.readObject();
+            ArrayList<Integer> a2 = (ArrayList<Integer>) f2.readObject();
+            Set<Integer> se = new TreeSet<>(a1);
+            se.retainAll(a2);
+            
+            for(Integer x:se){
+                if(check(x)){
+                    System.out.println(x+" "+Collections.frequency(a1, x)+" "+Collections.frequency(a2, x));
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+        }
+    }
+}
