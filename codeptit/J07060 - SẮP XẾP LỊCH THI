@@ -1,0 +1,109 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class MonThi{
+        String id, name, type;
+        double time;
+        public MonThi(String id, String name, String type){
+            this.id = id;
+            this.name = name;
+            this.type = type;
+        }
+    }
+    
+    static class CaThi{
+        static int cnt = 1;
+        String id, date, time, idRoom;
+        public CaThi(String date, String time, String idRoom){
+            this.id = String.format("C%03d", cnt++);
+            this.date = date;
+            this.time = time;
+            this.idRoom = idRoom;
+        }
+    }
+    
+    static class LichThi implements Comparable<LichThi>{
+        String lop, ssv;
+        MonThi mt;
+        CaThi ct;
+        public LichThi(CaThi ct, MonThi mt, String lop, String ssv){
+            this.mt = mt;
+            this.ct = ct;
+            this.lop = lop;
+            this.ssv = ssv;
+        }
+        
+        @Override
+        public int compareTo(LichThi b){
+            String tmp1 = this.ct.date+" "+this.ct.time;
+            String tmp2 = b.ct.date+" "+b.ct.time;
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            try {
+                Date d1 = sdf.parse(tmp1);
+                Date d2 = sdf.parse(tmp2);
+                if(d1.equals(d2)) return this.ct.id.compareTo(b.ct.id);
+                return d1.compareTo(d2);
+            } catch (ParseException e) {
+                return 0;
+            }
+        }
+        
+        @Override
+        public String toString(){
+            return ct.date+" "+ct.time+" "+ct.idRoom+" "+mt.name+" "+lop+" "+ssv;
+        }
+    }
+    
+    public static void main(String[] args) {
+        try {
+            Scanner in1 = new Scanner(new File("MONTHI.in"));
+            Scanner in2 = new Scanner(new File("CATHI.in"));
+            Scanner in3 = new Scanner(new File("LICHTHI.in"));
+            List<MonThi> a1 = new ArrayList<>();
+            List<CaThi> a2 = new ArrayList<>();
+            List<LichThi> a3 = new ArrayList<>();
+            
+            int t = in1.nextInt();
+            in1.nextLine();
+            while(t-- > 0){
+                a1.add(new MonThi(in1.nextLine(), in1.nextLine(), in1.nextLine()));
+            }
+            in1.close();
+            
+            in2.nextLine();
+            while(in2.hasNextLine()){
+                a2.add(new CaThi(in2.nextLine(), in2.nextLine(), in2.nextLine()));
+            }
+            in2.close();
+            
+            in3.nextLine();
+            while(in3.hasNextLine()){
+                String[] line = in3.nextLine().trim().split("\\s+");
+                for(CaThi x:a2){
+                    if(x.id.equals(line[0])){
+                        for(MonThi y:a1){
+                            if(y.id.equals(line[1])){
+                                a3.add(new LichThi(x,y,line[2], line[3]));
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            in3.close();
+            
+            Collections.sort(a3);
+            for(LichThi x:a3){
+                System.out.println(x);
+            }
+            
+        } catch (FileNotFoundException e) {
+        }
+    }
+}
