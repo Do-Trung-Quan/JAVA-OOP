@@ -1,0 +1,66 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public class Solution{
+    static class KhachHang implements Comparable<KhachHang>{
+        static int cnt = 1;
+        String id, name, sex, dob, add;
+        public KhachHang(String name, String sex, String dob, String add){
+            this.id = String.format("KH%03d", cnt++);
+            this.name = chuanhoaN(name);
+            this.sex = sex;
+            this.dob = chuanhoaD(dob);
+            this.add = add;
+        }
+        
+        public String chuanhoaN(String n){
+            String res = "";
+            for(String x:n.trim().toLowerCase().split("\\s+")){
+                res+=x.substring(0,1).toUpperCase()+x.substring(1).toLowerCase()+" ";
+            }
+            return res.trim();
+        }
+        
+        public String chuanhoaD (String n){
+            StringBuilder res = new StringBuilder(n.trim());
+            if(res.charAt(1)=='/') res.insert(0, "0");
+            if(res.charAt(4) == '/') res.insert(3, "0");
+            return res.toString();
+        }
+        
+        @Override
+        public int compareTo(KhachHang b){
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate d1 = LocalDate.parse(this.dob, fmt);
+            LocalDate d2 = LocalDate.parse(b.dob, fmt);
+            return d1.compareTo(d2);
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+sex+" "+add+" "+dob;
+        }
+    }
+    public static void main(String[] args) {
+        try {
+            Scanner in = new Scanner(new File("STRING.in"));
+            in.nextLine();
+            while(in.hasNextLine()){
+                String s1 = in.next();
+                String s2 = in.next();
+                int i = 0;
+                while(s1.indexOf(s2, i) >= 0){
+                    int tmp = s1.indexOf(s2, i);
+                    System.out.print(tmp+1+" ");
+                    i = tmp+1;
+                }
+                System.out.println();
+            }
+            
+        } catch (FileNotFoundException e) {
+        }
+    }
+}
