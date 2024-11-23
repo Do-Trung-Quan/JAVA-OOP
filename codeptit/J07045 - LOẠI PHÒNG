@@ -1,0 +1,81 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package demo;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+/**
+ *
+ * @author huyle
+ */
+public class Solution {
+    static Map<String, String> mp = new HashMap<>();
+    static class LoaiPhong implements Comparable<LoaiPhong>{
+        String type, name, price, subcost;
+        public LoaiPhong(String n){
+            String[] line = n.trim().split("\\s+");
+            this.type = line[0];
+            this.name = line[1];
+            this.price = line[2];
+            this.subcost = line[3];
+        }
+        
+        @Override
+        public int compareTo(LoaiPhong b){
+            return this.name.compareTo(b.name);
+        }
+        
+        @Override
+        public String toString(){
+            return type+" "+name+" "+price+" "+subcost;
+        }
+    }
+    
+    public static void main(String[] args) throws IOException {
+        ArrayList<LoaiPhong> ds = new ArrayList<>();
+        Scanner in = new Scanner(new File("PHONG.in"));
+        int n = Integer.parseInt(in.nextLine());
+        while(n-->0){
+            ds.add(new LoaiPhong(in.nextLine()));
+        }
+        Collections.sort(ds);
+        for(LoaiPhong tmp : ds){
+            System.out.println(tmp);
+        }
+    }
+    public static void main5669455(String[] args) throws IOException {
+            ArrayList<LoaiPhong> ds = new ArrayList<>();
+            Scanner in = new Scanner(new File("PHONG.in"));
+            int n = Integer.parseInt(in.nextLine());
+            while(n-->0){
+                ds.add(new LoaiPhong(in.nextLine()));
+            }
+            Collections.sort(ds);
+            for(LoaiPhong tmp : ds){
+                System.out.println(tmp);
+            }
+        }
+}
+
+/*
+2
+HC Hanh chinh
+KH Ke hoach Dau tu
+2
+C06HC
+Tran Binh Minh
+65
+25
+D03KH
+Le Hoa Binh
+59
+24
+*/
