@@ -1,0 +1,110 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package demo;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+/**
+ *
+ * @author huyle
+ */
+public class Solution {
+//    static Map<String, String> mp = new HashMap<>();
+    static class KhachHang implements Comparable<KhachHang>{
+        String id, name, in,out, room;
+        int ext;
+        static int cnt = 1;
+        public KhachHang(String name, String room, String in, String out, int ext){
+            this.id = String.format("KH%02d", cnt++);
+            this.name = chuanhoaN(name.trim());
+            this.room = room.trim();
+            this.in = chuanhoaD(in.trim());
+            this.out = chuanhoaD(out.trim());
+            this.ext = ext;
+        }
+        
+        public String chuanhoaN(String n){
+            String res = "";
+            for(String x:n.split("\\s+")){
+                res+=x.substring(0,1).toUpperCase()+x.substring(1).toLowerCase()+" ";
+            }
+            return res.trim();
+        }
+        
+        public String chuanhoaD(String n){
+            StringBuilder res = new StringBuilder(n);
+            if(n.charAt(2)!='/') res.insert(0, "0");
+            if(n.charAt(5)!='/') res.insert(3, "0");
+            return res.toString();
+        }
+        
+        public int getHS(){
+            char fl = room.charAt(0);
+            if(fl=='1') return 25;
+            if(fl=='2') return 34;
+            if(fl=='3') return 50;
+            return 80;
+        }
+        
+        public int getDay(){
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate din = LocalDate.parse(in, fmt);
+            LocalDate dout = LocalDate.parse(out, fmt);
+            return (int)ChronoUnit.DAYS.between(din, dout)+1;
+        }
+        
+        public int getTotal(){
+            return getDay()*getHS()+ext;
+        }
+        
+        @Override
+        public int compareTo(KhachHang b){
+            return b.getTotal() - this.getTotal();
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+room+" "+getDay()+" "+getTotal();
+        }
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException {
+            ArrayList<KhachHang> ds = new ArrayList<>();
+            Scanner in = new Scanner(new File("KHACHHANG.in"));
+            int n = in.nextInt();
+            while(n-->0){
+                in.nextLine();
+                ds.add(new KhachHang(in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine(), in.nextInt()));
+            }
+            Collections.sort(ds);
+            for(KhachHang tmp : ds){
+                System.out.println(tmp);
+            }
+        }
+}
+
+/*
+2
+HC Hanh chinh
+KH Ke hoach Dau tu
+2
+C06HC
+Tran Binh Minh
+65
+25
+D03KH
+Le Hoa Binh
+59
+24
+*/
