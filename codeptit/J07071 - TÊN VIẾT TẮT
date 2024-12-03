@@ -1,0 +1,53 @@
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class Solution{
+    static class comp implements Comparator<String>{
+        @Override
+        public int compare(String n, String m){
+            String[] lineN = n.trim().split("\\s+");
+            String[] lineM = m.trim().split("\\s+");
+            String tenN = lineN[lineN.length-1];
+            String tenM = lineM[lineM.length-1];
+            String hoN = "", hoM = "";
+            for(String x:lineN){
+                hoN+=x+" ";
+            }
+            for(String x:lineM){
+                hoM+=x+" ";
+            }
+            if(tenN.equals(tenM)) return hoN.compareTo(hoM);
+            return tenN.compareTo(tenM);
+        }
+    }
+    
+    static boolean check(String tmp, String n){
+        String[] line = tmp.trim().split("\\.");
+        String[] lineN = n.trim().split("\\s+");
+        if(line.length != lineN.length) return false;
+        for(int i=0;i<=line.length-1;i++){
+            if(!(lineN[i].startsWith(line[i]) || line[i].equals("*"))) return false;
+        }
+        return true;
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException{
+        Scanner in = new Scanner(new File("DANHSACH.in"));
+        int t = in.nextInt();
+        List<String> a = new ArrayList<>();
+        in.nextLine();
+        while(t-- > 0){
+            a.add(in.nextLine());
+        }
+        Collections.sort(a, new comp());
+        t = in.nextInt();
+        in.nextLine();
+        while(t-- > 0){
+            String tmp = in.nextLine();
+            for(String x:a){
+                if(check(tmp,x)) System.out.println(x);
+            }
+        }
+    }
+}
