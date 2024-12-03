@@ -1,0 +1,74 @@
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class Solution{
+    static class KhachHang implements Comparable<KhachHang>{
+        static int cnt = 1;
+        String id, name, type;
+        int num;
+        
+        public KhachHang(String name, String type, int st, int en){
+            this.id = String.format("KH%02d", cnt++);
+            this.name = chuanhoa(name);
+            this.type = type;
+            this.num = en-st;
+        }
+        
+        public String chuanhoa(String name){
+            String res = "";
+            for(String x:name.trim().split("\\s+")){
+                res+=x.substring(0,1).toUpperCase()+x.substring(1).toLowerCase()+" ";
+            }
+            return res.trim();
+        }
+        
+        public int getLim(){
+            if(type.equals("A")) return 100;
+            if(type.equals("B")) return 500;
+            return 200;
+        }
+        
+        public int getIN(){
+            if(num <= getLim()) return num*450;
+            return getLim()*450;
+        }
+        
+        public int getOUT(){
+            if(num <= getLim()) return 0;
+            return (num-getLim())*1000;
+        }
+        
+        public int getVAT(){
+            return (int)(getOUT()*0.05);
+        }
+        
+        public int getTotal(){
+            return getIN()+getOUT()+getVAT();
+        }
+        
+        @Override
+        public int compareTo(KhachHang b){
+            return Double.compare(b.getTotal(), this.getTotal());
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+getIN()+" "+getOUT()+" "+getVAT()+" "+getTotal();
+        }
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException{
+        Scanner in = new Scanner(new File("KHACHHANG.in"));
+        int t = in.nextInt();
+        List<KhachHang> a = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new KhachHang(in.nextLine(), in.next(), in.nextInt(), in.nextInt()));
+        }
+        Collections.sort(a);
+        for(KhachHang x:a){
+            System.out.println(x);
+        }
+    }
+}
