@@ -1,0 +1,61 @@
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class Solution{
+    static class SinhVien implements Comparable<SinhVien>{
+        String id, name, sdt, mail;
+        
+        public SinhVien(String id, String name, String sdt, String mail){
+            this.id = id;
+            this.name = name;
+            this.sdt = sdt;
+            this.mail = mail;
+        }
+        
+        public String getName(){
+            String[] line = name.trim().split("\\s+");
+            return line[line.length-1];
+        }
+        
+        public String getSurname(){
+            String[] line = name.trim().split("\\s+");
+            String res = "";
+            int cnt = 0;
+            for(String x:line){
+                if(cnt++ < line.length-1) res+=x+" ";
+            }
+            return res.trim();
+        }
+        
+        @Override
+        public int compareTo(SinhVien b){
+            if(b.getName().equals(this.getName()) && b.getSurname().equals(this.getSurname())){
+                return this.id.compareTo(b.id);
+            }
+            if(b.getName().equals(this.getName())){
+                return this.getSurname().compareTo(b.getSurname());
+            }
+            return this.getName().compareTo(b.getName());
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+sdt+" "+mail;
+        }
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException{
+        Scanner in = new Scanner(new File("SINHVIEN.in"));
+        int t = in.nextInt();
+        in.nextLine();
+        ArrayList<SinhVien> a = new ArrayList<>();
+        while(t-- > 0){
+            a.add(new SinhVien(in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+        Collections.sort(a);
+        for(SinhVien x:a){
+            System.out.println(x);
+        }
+    }
+}
