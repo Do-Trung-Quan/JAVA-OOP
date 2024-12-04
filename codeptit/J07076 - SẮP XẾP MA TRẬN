@@ -1,0 +1,54 @@
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class Solution{
+    static class MonHoc implements Comparable<MonHoc>{
+        String id, name, num, ht1, ht2;
+        
+        public MonHoc(String id, String name, String num, String ht1, String ht2){
+            this.id = id;
+            this.name = name;
+            this.num = num;
+            this.ht1 = ht1;
+            this.ht2 = ht2;
+        }
+        
+        @Override
+        public int compareTo(MonHoc b){
+            return this.id.compareTo(b.id);
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+num+" "+ht1+" "+ht2;
+        }
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException{
+        Scanner in = new Scanner(new File("MATRIX.in"));
+        int t = in.nextInt();
+        while(t-- > 0){
+            int n = in.nextInt();
+            int m = in.nextInt();
+            int o = in.nextInt();
+            int[][] a = new int[n][m];
+            List<Integer> ar = new ArrayList<>();
+            for(int i=0;i<n;i++){
+                for(int j=0;j<m;j++){
+                    a[i][j] = in.nextInt();
+                    if(j==o-1) ar.add(a[i][j]);
+                }
+            }
+            Collections.sort(ar);
+            for(int i=0;i<n;i++){
+                for(int j=0;j<m;j++){
+                    if(j==o-1) System.out.print(ar.get(i)+" ");
+                    else System.out.print(a[i][j]+" ");
+                }
+                System.out.println();
+            }
+            
+        }
+    }
+}
