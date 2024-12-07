@@ -1,0 +1,61 @@
+package demo;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Solution{
+    static class SinhVien{
+        String id, name, lop, date;
+        double gpa;
+        static int cnt = 1;
+
+        public SinhVien(String name, String lop, String date, double gpa){
+            this.id = String.format("B20DCCN%03d", cnt++);
+            this.name = chuanhoaN(name);
+            this.lop = lop;
+            this.date = chuanhoaD(date);
+            this.gpa = gpa;
+            
+        }
+        
+        public String chuanhoaN(String n){
+            String res = "";
+            for(String x:n.trim().split("\\s+")){
+                res+=x.substring(0,1).toUpperCase()+x.substring(1).toLowerCase()+" ";
+            }
+            return res.trim();
+        }
+        
+        public String chuanhoaD(String n){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date d = sdf.parse(n);
+                return sdf.format(d);
+            } catch (ParseException e) {
+                return "lol";
+            }
+        }
+        
+        @Override
+        public String toString(){
+            return id+" "+name+" "+lop+" "+date+" "+String.format("%.2f", gpa);
+        }
+    }
+    
+   public static void main(String[] args) throws IOException {
+        Scanner in = new Scanner(new File("SINHVIEN.in"));
+        int t = in.nextInt();
+        List<SinhVien> a = new ArrayList<>();
+        while(t-- > 0){
+            in.nextLine();
+            a.add(new SinhVien(in.nextLine(), in.nextLine(), in.nextLine(), in.nextDouble()));
+        }
+        for(SinhVien x:a){
+            System.out.println(x);
+        }
+    }
+}
