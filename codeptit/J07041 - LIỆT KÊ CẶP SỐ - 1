@@ -1,0 +1,56 @@
+J07013 - DANH SÁCH SINH VIÊN TRONG FILE NHỊ PHÂN/Main.java
+package test;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Main {
+        public static void main(String[] args) throws IOException, ClassNotFoundException {
+        ObjectInputStream f = new ObjectInputStream(new FileInputStream("DATA.in"));
+        ArrayList<Pair> a = (ArrayList<Pair>) f.readObject();
+        Collections.sort(a);
+        Set<String> se = new HashSet<>();
+        for(Pair x:a){
+            if(x.getFirst() < x.getSecond() && !se.contains(x.toString())){
+                se.add(x.toString());
+                System.out.println(x);
+            }
+        }
+    }
+}
+J07013 - DANH SÁCH SINH VIÊN TRONG FILE NHỊ PHÂN/Pair.java
+package test;
+
+//import java.io.Serializable;
+import java.io.Serializable;
+
+public class Pair implements Serializable, Comparable<Pair>{
+        private int first, second;
+        public Pair(int first, int second){
+            this.first = first;
+            this.second = second;
+        }
+        
+        public int getFirst(){
+            return first;
+        }
+        
+        public int getSecond(){
+            return second;
+        }
+        
+        @Override
+        public int compareTo(Pair o){
+            return this.first - o.first;
+        }
+        
+        @Override
+        public String toString(){
+            return "("+first+", "+second+")";
+        }
+    }
