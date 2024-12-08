@@ -1,0 +1,36 @@
+package demo;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.util.*;
+
+public class Solution{
+    static Map<String, Integer> mp = new HashMap<>();
+    static class comp implements Comparator<String>{
+        @Override
+        public int compare(String a, String b){
+            if(mp.get(a) == mp.get(b)) return a.compareTo(b);
+            return mp.get(b) - mp.get(a);
+        }
+    }
+    
+    public static void main(String[] args) throws IOException{
+        Scanner in = new Scanner(new File("VANBAN.in"));
+        int t = in.nextInt();
+        in.nextLine();
+        
+        while(t-- > 0){
+            for(String x:in.nextLine().toLowerCase().trim().split("\\s+|\\,+|\\.+|\\?+|\\!+|\\:+|\\;+|\\(+|\\)+|\\-+|\\/+")){
+                if(x.matches("[a-zA-Z0-9]+")) mp.put(x, mp.getOrDefault(x, 0)+1);
+            }
+        }
+        ArrayList<String> a = new ArrayList<>(mp.keySet());
+        Collections.sort(a, new comp());
+        for(String x:a){
+            System.out.println(x+" "+mp.get(x));
+        }
+    }
+}
